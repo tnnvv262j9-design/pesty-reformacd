@@ -1,0 +1,392 @@
+<div id="cebaderos-view-content" class="module-content">
+    <div class="view-header">
+        <h2 class="view-title">Gestión de <span class="highlight">Cebaderos</span></h2>
+        <div class="header-actions">
+            <button class="icon-btn" id="cebaderos-help-btn" title="Ayuda">
+                <i class="fas fa-question-circle"></i>
+            </button>
+            <button class="cta-button" onclick="openCebaderoModal()">
+                <i class="fas fa-plus"></i> Nuevo Cebadero
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(52, 211, 153, 0.2); color: #34D399;">
+                <i class="fas fa-box"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Total Cebaderos</h3>
+                <p class="stat-value" id="stat-total-cebaderos">0</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(251, 191, 36, 0.2); color: #FBBF24;">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Alertas Activas</h3>
+                <p class="stat-value" id="stat-alertas-cebaderos">0</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(96, 165, 250, 0.2); color: #60A5FA;">
+                <i class="fas fa-clipboard-check"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Inspecciones Mes</h3>
+                <p class="stat-value" id="stat-inspecciones-mes">0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="cebaderos-tabs-nav">
+        <button class="cebaderos-tab-btn active" data-tab="catalogo">📋 Catálogo</button>
+        <button class="cebaderos-tab-btn" data-tab="inspecciones">🔍 Inspecciones</button>
+        <button class="cebaderos-tab-btn" data-tab="plano">🗺️ Plano</button>
+        <button class="cebaderos-tab-btn" data-tab="reportes">📄 Reportes</button>
+    </div>
+
+    <!-- Tab Content: Catálogo -->
+    <div id="tab-catalogo" class="cebaderos-tab-content active">
+        <div class="filters-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="cebadero-search" placeholder="Buscar por ID, Cliente, Ubicación...">
+            </div>
+            <select id="filter-cliente" class="filter-select" data-custom-select>
+                <option value="">Todos los Clientes</option>
+            </select>
+            <select id="filter-estado" class="filter-select" data-custom-select>
+                <option value="">Todos los Estados</option>
+                <option value="active">Activo</option>
+                <option value="inactive">Inactivo</option>
+                <option value="removed">Retirado</option>
+            </select>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="data-table" id="cebaderos-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente / Sucursal</th>
+                        <th>Tipo</th>
+                        <th>Ubicación</th>
+                        <th>Estado</th>
+                        <th>Última Inspección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JS will populate this -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Content: Inspecciones -->
+    <div id="tab-inspecciones" class="cebaderos-tab-content">
+        <div class="filters-bar">
+             <button class="cta-button" onclick="openInspectionModal()">
+                <i class="fas fa-clipboard-list"></i> Nueva Inspección
+            </button>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="inspection-search" placeholder="Buscar inspecciones...">
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table" id="inspecciones-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Cebadero</th>
+                        <th>Técnico</th>
+                        <th>Estado</th>
+                        <th>Actividad</th>
+                        <th>Acción</th>
+                        <th>Evidencia</th>
+                        <th>Notas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JS will populate this -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Content: Plano -->
+    <div id="tab-plano" class="cebaderos-tab-content">
+        <div class="plano-controls">
+            <select id="plano-cliente-select" class="filter-select">
+                <option value="">Seleccionar Cliente</option>
+            </select>
+            <button class="cta-button" id="btn-upload-plano">
+                <i class="fas fa-upload"></i> Subir Plano
+            </button>
+            <input type="file" id="file-plano" accept="image/*" hidden>
+        </div>
+        <div class="plano-container" id="plano-wrapper">
+            <div class="plano-placeholder">
+                <i class="fas fa-map"></i>
+                <p>Selecciona un cliente para ver su plano de cebaderos</p>
+            </div>
+            <!-- Image and markers will be injected here -->
+        </div>
+    </div>
+
+    <!-- Tab Content: Reportes -->
+    <div id="tab-reportes" class="cebaderos-tab-content">
+        <div class="report-generator-card">
+            <h3>Generar Reporte de Cebaderos</h3>
+            <form id="cebadero-report-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <select id="report-client" required data-custom-select>
+                            <option value="">Seleccionar Cliente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Rango de Fechas</label>
+                        <div class="date-range-inputs">
+                            <input type="date" id="report-start-date" required>
+                            <span>a</span>
+                            <input type="date" id="report-end-date" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="cta-button">
+                        <i class="fas fa-file-pdf"></i> Generar Reporte PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Cebadero -->
+<div id="cebadero-modal" class="modal">
+    <div class="modal-content large-modal">
+        <span class="modal-close" onclick="closeModal('cebadero-modal')">×</span>
+        <h2 id="cebadero-modal-title">Nuevo Cebadero</h2>
+        <form id="cebadero-form">
+            <input type="hidden" id="cebadero-id">
+            
+            <div class="form-section">
+                <h3>1. Información General</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Cliente / Sucursal *</label>
+                        <select id="cebadero-client" required data-custom-select>
+                            <option value="">Seleccionar...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>ID Único *</label>
+                        <input type="text" id="cebadero-code" required placeholder="Ej: CB-01">
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tipo de Área</label>
+                        <select id="cebadero-area-type" required>
+                            <option value="Interior">Interior</option>
+                            <option value="Exterior">Exterior</option>
+                            <option value="Perimetral">Perimetral</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ubicación Detallada</label>
+                        <input type="text" id="cebadero-location" required placeholder="Ej: Muro norte, junto a almacén">
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tipo de Dispositivo</label>
+                        <select id="cebadero-device-type" required>
+                            <option value="Portacebo">Portacebo</option>
+                            <option value="Trampa Mecánica">Trampa Mecánica</option>
+                            <option value="Trampa Adhesiva">Trampa Adhesiva</option>
+                            <option value="Jaula">Jaula</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Especie Objetivo</label>
+                        <select id="cebadero-target" required>
+                            <option value="Roedores">Roedores</option>
+                            <option value="Insectos Rastreros">Insectos Rastreros</option>
+                            <option value="Voladores">Voladores</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>2. Control de Cebo Inicial</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Producto / Cebo</label>
+                        <input type="text" id="cebadero-product" placeholder="Nombre comercial">
+                    </div>
+                    <div class="form-group">
+                        <label>Ingrediente Activo</label>
+                        <input type="text" id="cebadero-active-ingredient">
+                    </div>
+                </div>
+                 <div class="form-grid">
+                    <div class="form-group">
+                        <label>Registro COFEPRIS</label>
+                        <input type="text" id="cebadero-cofepris">
+                    </div>
+                     <div class="form-group">
+                        <label>Fecha Caducidad Cebo</label>
+                        <input type="date" id="cebadero-bait-expiry">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>3. Estado y QR</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select id="cebadero-status" required>
+                            <option value="active">Activo</option>
+                            <option value="inactive">Inactivo</option>
+                            <option value="removed">Retirado</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label>Generar Código QR</label>
+                        <div class="qr-preview" id="cebadero-qr-preview">
+                            <button type="button" class="btn-small" id="btn-generate-qr">Generar QR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="action-btn" onclick="closeModal('cebadero-modal')">Cancelar</button>
+                <button type="submit" class="cta-button">Guardar Cebadero</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Inspección -->
+<div id="inspection-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('inspection-modal')">×</span>
+        <h2 id="inspection-modal-title">Registrar Inspección</h2>
+        <form id="inspection-form">
+            <input type="hidden" id="inspection-id">
+            
+            <div class="form-group">
+                <label>Cebadero *</label>
+                <select id="inspection-cebadero-id" required data-custom-select>
+                    <option value="">Seleccionar Cebadero...</option>
+                </select>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Fecha y Hora</label>
+                    <input type="datetime-local" id="inspection-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Técnico</label>
+                    <select id="inspection-tech" required>
+                        <option value="">Seleccionar...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Estado y Hallazgos</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Estado del Dispositivo (Selección Múltiple)</label>
+                        <div class="multi-select-container" id="inspection-condition-group">
+                            <label class="checkbox-pill"><input type="checkbox" value="Integro"> <span>Íntegro</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Dañado"> <span>Dañado</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Manipulado"> <span>Manipulado</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Faltante"> <span>Faltante</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Obstruido"> <span>Obstruido</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Actividad / Consumo</label>
+                        <select id="inspection-activity" required>
+                            <option value="Sin Consumo">Sin Consumo</option>
+                            <option value="Consumo Leve">Consumo Leve (25%)</option>
+                            <option value="Consumo Medio">Consumo Medio (50%)</option>
+                            <option value="Consumo Alto">Consumo Alto (75-100%)</option>
+                            <option value="Excretas">Presencia de Excretas</option>
+                            <option value="Captura">Captura (Trampas)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Acciones Tomadas</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Acción Realizada (Selección Múltiple)</label>
+                        <div class="multi-select-container" id="inspection-action-group">
+                            <label class="checkbox-pill"><input type="checkbox" value="Revision"> <span>Solo Revisión</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Reposicion"> <span>Reposición de Cebo</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Limpieza"> <span>Limpieza</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Cambio"> <span>Cambio de Dispositivo</span></label>
+                            <label class="checkbox-pill"><input type="checkbox" value="Reubicacion"> <span>Reubicación</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Cantidad Repuesta (g/unidades)</label>
+                        <input type="number" id="inspection-amount" placeholder="0">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>Evidencia Fotográfica</label>
+                    <input type="file" id="inspection-photo" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea id="inspection-notes" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="action-btn" onclick="closeModal('inspection-modal')">Cancelar</button>
+                <button type="submit" class="cta-button">Guardar Inspección</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Ayuda -->
+<div id="cebaderos-help-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('cebaderos-help-modal')">×</span>
+        <h2>Ayuda - Módulo de Cebaderos</h2>
+        <div class="help-content">
+            <p>Este módulo permite gestionar estaciones de cebado conforme a normativas COFEPRIS.</p>
+            <h3>Funciones Principales:</h3>
+            <ul>
+                <li><strong>Catálogo:</strong> Inventario de todos los cebaderos instalados por cliente.</li>
+                <li><strong>Inspecciones:</strong> Registro detallado de cada visita, consumo y acciones.</li>
+                <li><strong>Plano:</strong> Visualización gráfica de la ubicación de los cebaderos.</li>
+                <li><strong>Alertas:</strong> Notificaciones sobre cebaderos sin revisar o cebo caducado.</li>
+            </ul>
+        </div>
+        <button class="cta-button" onclick="closeModal('cebaderos-help-modal')" style="width: 100%; margin-top: 20px;">¡Entendido!</button>
+    </div>
+</div>

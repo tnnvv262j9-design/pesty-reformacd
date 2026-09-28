@@ -1,0 +1,77 @@
+[21-Feb-2026 09:49:25 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:25 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:25 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[21-Feb-2026 09:49:25 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[21-Feb-2026 09:49:26 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[21-Feb-2026 09:49:26 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 2
+[21-Feb-2026 09:49:26 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[21-Feb-2026 09:49:26 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/update_db_techs.php on line 6
+[15-Apr-2026 07:02:26 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:26 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:26 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:26 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:34 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:34 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:34 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:34 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:34 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:34 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:34 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:34 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:35 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:35 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:35 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:35 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:48 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:48 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:48 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:50 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:50 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:50 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:50 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:51 UTC] PHP Warning:  include(db_connect.php): Failed to open stream: No such file or directory in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:51 UTC] PHP Warning:  include(): Failed opening 'db_connect.php' for inclusion (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 2
+[15-Apr-2026 07:02:51 UTC] PHP Warning:  Undefined variable $conn in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37
+[15-Apr-2026 07:02:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/momacpzrzz/test.pesty.com.mx/create_certificates_tables.php on line 37

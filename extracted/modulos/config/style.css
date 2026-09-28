@@ -1,0 +1,440 @@
+#settings-view {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 20px;
+    animation: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Titles with Gradient & Neon */
+#settings-view .view-header {
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+}
+
+#settings-view .view-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--text-light) 0%, var(--accent-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+#settings-view .view-title .highlight {
+    color: var(--accent-primary);
+    -webkit-text-fill-color: var(--accent-primary);
+    text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+}
+
+/* Section Headers */
+#settings-view .form-section-title {
+    color: var(--text-light);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 40px 0 25px 0;
+    padding-left: 15px;
+    border-left: 4px solid var(--accent-primary);
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(52, 211, 153, 0.1) 0%, transparent 100%);
+    padding: 10px 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+#settings-view .form-section-title:first-of-type {
+    margin-top: 10px;
+}
+
+/* Grid & Cards */
+#settings-view .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+#settings-view .form-group {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+}
+
+#settings-view .form-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(52, 211, 153, 0.1), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#settings-view .form-group:hover {
+    transform: translateY(-5px);
+    border-color: rgba(52, 211, 153, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+#settings-view .form-group:hover::before {
+    opacity: 1;
+}
+
+#settings-view .form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Labels */
+#settings-view .form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+#settings-view .form-group:focus-within label {
+    color: var(--accent-primary);
+}
+
+/* Evitar recortes de los custom-select dentro de Config */
+#settings-view .custom-select-container { position: relative; }
+#settings-view .custom-select-container.active { z-index: 20000; }
+#settings-view .form-group.active-select { z-index: 19000; }
+#settings-view .custom-options { 
+    max-height: 320px; 
+    z-index: 10050; 
+    overflow-y: auto; 
+}
+
+/* Inputs */
+#settings-view .form-group input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="color"]),
+#settings-view .form-group select,
+#settings-view .form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-light);
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+}
+
+#settings-view .form-group input:focus,
+#settings-view .form-group select:focus,
+#settings-view .form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
+}
+
+/* Custom Select Arrow */
+#settings-view .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23A3A3A3%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: 10px auto;
+}
+
+/* Toggle Switch */
+.settings-toggle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.settings-toggle input[type="checkbox"] {
+    appearance: none;
+    width: 50px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.settings-toggle input[type="checkbox"]::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: var(--text-medium);
+    border-radius: 50%;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.settings-toggle input[type="checkbox"]:checked {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
+}
+
+.settings-toggle input[type="checkbox"]:checked::after {
+    transform: translateX(22px);
+    background: #fff;
+}
+
+.settings-toggle label {
+    margin-bottom: 0 !important;
+    cursor: pointer;
+    font-size: 1rem !important;
+    color: var(--text-light) !important;
+}
+
+/* File Upload Modern */
+#settings-view .logo-upload-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+#settings-view .file-upload-area {
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    background: transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+#settings-view .file-upload-area:hover {
+    border-color: var(--accent-primary);
+    background: rgba(52, 211, 153, 0.05);
+}
+
+#settings-view .file-upload-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+#settings-view .file-upload-button svg {
+    color: var(--accent-primary);
+    width: 48px;
+    height: 48px;
+    filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.3));
+    transition: transform 0.3s ease;
+}
+
+#settings-view .file-upload-area:hover svg {
+    transform: translateY(-5px) scale(1.1);
+}
+
+#settings-view .logo-preview {
+    max-width: 250px;
+    margin: 20px auto 0;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Color Picker */
+#settings-view input[type="color"] {
+    height: 50px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+}
+
+#settings-view input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#settings-view input[type="color"]::-webkit-color-swatch {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+/* CTA Button */
+#settings-view .cta-button {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-dark, #059669) 100%);
+    border: none;
+    padding: 18px 40px;
+    border-radius: 12px;
+    color: #000;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 20px rgba(52, 211, 153, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#settings-view .cta-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+#settings-view .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(52, 211, 153, 0.4);
+}
+
+#settings-view .cta-button:hover::after {
+    transform: translateX(100%);
+}
+
+#settings-view .cta-button:active {
+    transform: scale(0.98);
+}
+
+/* Treatment Methods List (Modern List View) */
+.treatment-methods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    max-height: 450px;
+    overflow-y: auto;
+    pointer-events: auto; /* Ensure interactions */
+    touch-action: pan-y; /* Enable touch scrolling */
+    /* Custom Scrollbar for list */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-primary) rgba(0,0,0,0.2);
+    position: relative; /* Ensure stacking context */
+    z-index: 5;
+}
+
+.treatment-method-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+    cursor: default;
+    /* Prevent item from blocking scroll */
+    pointer-events: none; /* Let clicks pass through to container for scrolling */
+    flex-shrink: 0; /* Prevent shrinking in flex container */
+    position: relative;
+}
+
+.treatment-method-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(52, 211, 153, 0.3);
+    transform: translateX(5px);
+}
+
+.treatment-method-name {
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 500;
+    user-select: text; /* Allow text selection */
+    pointer-events: auto; /* Re-enable pointer events for text selection */
+}
+
+.treatment-method-actions {
+    display: flex;
+    gap: 12px;
+    z-index: 10; /* Ensure buttons are above */
+    pointer-events: auto; /* Re-enable pointer events for buttons */
+}
+
+.treatment-action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-medium);
+    pointer-events: auto; /* Force pointer events */
+}
+
+.treatment-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.treatment-action-btn.edit:hover {
+    color: var(--accent-primary);
+    background: rgba(52, 211, 153, 0.15);
+}
+
+.treatment-action-btn.delete:hover {
+    color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.15);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group input {
+    flex: 1;
+}
+
+.input-group button {
+    width: auto !important;
+    margin-top: 0 !important;
+    padding: 0 25px !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #settings-view .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #settings-view .view-title {
+        font-size: 2rem;
+    }
+}

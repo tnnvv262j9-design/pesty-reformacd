@@ -1,0 +1,435 @@
+<div class="view-header">
+    <h2 class="view-title" data-i18n="clients.title">Gestión de <span class="highlight">Clientes</span></h2>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+        <button class="cta-button" onclick="openClientModal()" data-i18n="clients.add_client">➕ Agregar Cliente</button>
+        <button id="clients-help-btn" class="learn-more" onclick="openClientsHelpModal()" title="Ayuda del Módulo">
+            <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Ayuda</span>
+        </button>
+    </div>
+</div>
+
+<!-- Modal de Ayuda de Clientes -->
+<div id="clients-help-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 700px; max-height: 85vh; overflow-y: auto;">
+        <span class="modal-close" onclick="closeModal('clients-help-modal')">×</span>
+        <h2 class="view-title">Guía del Módulo de <span class="highlight">Clientes</span></h2>
+        
+        <div class="help-content" style="margin-top: 20px;">
+            <div class="help-step">
+                <div class="help-step-number">1</div>
+                <div class="help-step-content">
+                    <h3>Agregar un Nuevo Cliente</h3>
+                    <p>Haz clic en el botón <span class="help-highlight">➕ Agregar Cliente</span>. Completa la información básica como nombre, teléfono (con código de país), dirección y zona. Esto creará el perfil del cliente en el sistema.</p>
+                    
+                    <div class="mockup-container">
+                        <span class="mockup-label">Formulario de Registro</span>
+                        <div class="mockup-form-group">
+                            <label>Nombre Completo</label>
+                            <div class="mockup-input">Juan Pérez</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="mockup-form-group" style="width: 100px;">
+                                <label>País</label>
+                                <div class="mockup-input">🇲🇽 +52</div>
+                            </div>
+                            <div class="mockup-form-group" style="flex: 1;">
+                                <label>Teléfono</label>
+                                <div class="mockup-input">55 1234 5678</div>
+                            </div>
+                        </div>
+                        <div class="mockup-form-group">
+                            <label>Dirección Completa</label>
+                            <div class="mockup-input">Av. Reforma 123, Col. Centro</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="mockup-form-group" style="flex: 1;">
+                                <label>Zona</label>
+                                <div class="mockup-input">Centro</div>
+                            </div>
+                            <div class="mockup-form-group" style="flex: 1;">
+                                <label>Frecuencia</label>
+                                <div class="mockup-input">Mensual ▾</div>
+                            </div>
+                        </div>
+                        <div class="mockup-form-group">
+                            <label>Notas / Observaciones</label>
+                            <div class="mockup-input" style="height: 60px;">Cliente prefiere horario matutino.</div>
+                        </div>
+                        <button class="mockup-btn action" style="width: 100%; justify-content: center; background-color: red; border-color: red; color: white;">GUARDAR CLIENTE</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-step-number">2</div>
+                <div class="help-step-content">
+                    <h3>Ficha del Cliente</h3>
+                    <p>Haz clic en cualquier cliente de la lista para abrir su <span class="help-highlight">Ficha Detallada</span>. Aquí encontrarás toda la información centralizada del cliente.</p>
+                    
+                    <div class="mockup-container">
+                        <span class="mockup-label">Acciones Rápidas en la Ficha</span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                            <button class="mockup-btn whatsapp" style="background-color: #25D366; border-color: #25D366; color: white;">💬</button>
+                            <button class="mockup-btn action">📞</button>
+                            <button class="mockup-btn maps" style="width: 100%;">� Ver en Mapa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-step-number">3</div>
+                <div class="help-step-content">
+                    <h3>Historial y Servicios</h3>
+                    <p>Dentro de la ficha, navega por las pestañas para ver:</p>
+                    <ul style="color: var(--text-medium); margin-bottom: 10px;">
+                        <li><strong>Servicios:</strong> Historial de fumigaciones realizadas y próximas citas.</li>
+                        <li><strong>Cotizaciones:</strong> Presupuestos enviados al cliente.</li>
+                        <li><strong>Facturas:</strong> Estado de cuenta y facturación.</li>
+                    </ul>
+                    <p>Puedes crear nuevos registros directamente desde cada pestaña usando el botón <span class="help-highlight">+ Nuevo</span>.</p>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-step-number">4</div>
+                <div class="help-step-content">
+                    <h3>Frecuencia y Zona</h3>
+                    <p>Configura la <span class="help-highlight">Frecuencia</span> (Mensual, Bimestral, etc.) para que el sistema te recuerde cuándo toca el próximo servicio. Usa el campo <span class="help-highlight">Zona</span> para agrupar clientes geográficamente y optimizar tus rutas.</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="cta-button" onclick="closeModal('clients-help-modal')" style="width: 100%; margin-top: 20px;">¡Entendido!</button>
+    </div>
+</div>
+<div class="toolbar">
+    <input type="text" id="client-search" placeholder="Buscar por nombre, tel, dirección..." style="flex-grow: 2;">
+    <select id="client-filter-zone" data-custom-select><option value="">Todas las Zonas</option></select>
+    <select id="client-filter-tech" data-custom-select><option value="">Todos los Técnicos</option></select>
+    <select id="client-filter-freq" data-custom-select><option value="">Toda Frecuencia</option></select>
+</div>
+<div class="table-wrapper" style="margin-top: 20px;">
+    <table class="data-table" id="clients-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Zona</th>
+                <th>Frecuencia</th>
+                <th class="action-cell">Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<!-- Add/Edit Client Modal -->
+<div id="client-modal" class="modal no-print">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('client-modal')">×</span>
+        <h2 id="client-modal-title"></h2>
+        
+        <!-- Client Type Selection -->
+        <div id="client-type-selection" style="display: none;">
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 20px;">Selecciona el tipo de cliente:</p>
+            <div class="type-grid">
+                <div class="type-card" onclick="selectClientType('Casa')">
+                    <div class="icon">🏠</div>
+                    <div class="label">Casa</div>
+                </div>
+                <div class="type-card" onclick="selectClientType('Residencial')">
+                    <div class="icon">🏡</div>
+                    <div class="label">Residencial</div>
+                </div>
+                <div class="type-card" onclick="selectClientType('Hotel')">
+                    <div class="icon">🏨</div>
+                    <div class="label">Hotel</div>
+                </div>
+                <div class="type-card" onclick="selectClientType('Casino')">
+                    <div class="icon">🎰</div>
+                    <div class="label">Casino</div>
+                </div>
+                <div class="type-card" onclick="selectClientType('Maquiladora')">
+                    <div class="icon">🏭</div>
+                    <div class="label">Maquiladora</div>
+                </div>
+                <div class="type-card" onclick="selectClientType('Almacen')">
+                    <div class="icon">📦</div>
+                    <div class="label">Almacén</div>
+                </div>
+                <div class="type-card" onclick="selectClientType('Negocio Local')">
+                    <div class="icon">🏪</div>
+                    <div class="label">Negocio Local</div>
+                </div>
+            </div>
+            <style>
+                .type-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                    gap: 15px;
+                    margin-top: 20px;
+                }
+                .type-card {
+                    background: var(--bg-card, rgba(255, 255, 255, 0.05));
+                    border: 2px solid var(--border-color, rgba(255, 255, 255, 0.1));
+                    border-radius: 12px;
+                    padding: 20px 10px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    color: var(--text-primary, #fff);
+                }
+                .type-card:hover {
+                    border-color: var(--accent-primary, #34D399);
+                    transform: translateY(-3px);
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                    background: rgba(52, 211, 153, 0.05);
+                }
+                .type-card .icon {
+                    font-size: 2.5rem;
+                }
+                .type-card .label {
+                    font-weight: 600;
+                    font-size: 1rem;
+                }
+            </style>
+        </div>
+
+        <form id="client-form">
+            <input type="hidden" id="client-id">
+            <input type="hidden" id="client-type">
+            
+            <div style="margin-bottom: 15px;">
+                <button type="button" id="btn-back-type" class="action-btn small" onclick="showClientTypeSelection()" style="display: none; background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted);">← Cambiar Tipo</button>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="client-name">Nombre Completo</label>
+                    <input type="text" id="client-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="client-phone">Teléfono</label>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 140px; min-width: 140px;">
+                            <select id="client-country-code" data-custom-select>
+                                <option value="+52">🇲🇽 +52</option>
+                                <option value="+54">🇦🇷 +54</option>
+                                <option value="+591">🇧🇴 +591</option>
+                                <option value="+56">🇨🇱 +56</option>
+                                <option value="+57">🇨🇴 +57</option>
+                                <option value="+506">🇨🇷 +506</option>
+                                <option value="+53">🇨🇺 +53</option>
+                                <option value="+1">🇩🇴 +1</option>
+                                <option value="+593">🇪🇨 +593</option>
+                                <option value="+503">🇸🇻 +503</option>
+                                <option value="+502">🇬🇹 +502</option>
+                                <option value="+504">🇭🇳 +504</option>
+                                <option value="+505">🇳🇮 +505</option>
+                                <option value="+507">🇵🇦 +507</option>
+                                <option value="+595">🇵🇾 +595</option>
+                                <option value="+51">🇵🇪 +51</option>
+                                <option value="+1">🇵🇷 +1</option>
+                                <option value="+598">🇺🇾 +598</option>
+                                <option value="+58">🇻🇪 +58</option>
+                            </select>
+                        </div>
+                        <input type="tel" id="client-phone" required style="flex-grow: 1;">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label for="client-address">Dirección Completa</label>
+                <input type="text" id="client-address" required>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="client-zone">Zona</label>
+                    <input type="text" id="client-zone" placeholder="Ej: Centro, Juárez, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="client-frequency">Frecuencia de Servicio</label>
+                    <select id="client-frequency" data-custom-select>
+                        <option value="">Ninguna</option>
+                        <option value="Única vez">Única vez</option>
+                        <option value="Mensual">Mensual</option>
+                        <option value="Bimestral">Bimestral</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Cuatrimestral">Cuatrimestral</option>
+                        <option value="Semestral">Semestral</option>
+                        <option value="Anual">Anual</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label for="client-notes">Notas / Observaciones</label>
+                <textarea id="client-notes"></textarea>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">Guardar Cliente</button>
+        </form>
+    </div>
+</div>
+
+<div id="client-site-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 500px;">
+        <span class="modal-close" onclick="closeModal('client-site-modal')">×</span>
+        <h2 id="client-site-modal-title">Sucursal / Planta</h2>
+        <form id="client-site-form">
+            <input type="hidden" id="client-site-id">
+            <div class="form-group">
+                <label for="client-site-name">Nombre de la Sucursal / Planta</label>
+                <input type="text" id="client-site-name" required>
+            </div>
+            <div class="form-group">
+                <label for="client-site-code">Código interno</label>
+                <input type="text" id="client-site-code" placeholder="Ej: PLT-01">
+            </div>
+            <div class="form-group">
+                <label for="client-site-address">Dirección específica</label>
+                <input type="text" id="client-site-address">
+            </div>
+            <div class="form-group">
+                <label for="client-site-risk">Nivel de riesgo</label>
+                <select id="client-site-risk" data-custom-select>
+                    <option value="">Sin definir</option>
+                    <option value="alto">Alto</option>
+                    <option value="medio">Medio</option>
+                    <option value="bajo">Bajo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="client-site-notes">Notas</label>
+                <textarea id="client-site-notes" rows="3"></textarea>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">Guardar Sucursal</button>
+        </form>
+    </div>
+</div>
+
+<!-- Client Details Modal (Ficha) -->
+<div id="client-details-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 900px; padding: 0;">
+        <div class="modal-header" style="padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0; color: var(--accent-primary); font-family: var(--font-display); letter-spacing: 1px; font-size: 2rem;">Ficha del Cliente</h2>
+            <span class="modal-close" onclick="closeModal('client-details-modal')" style="position: static; transform: none; font-size: 2rem;">×</span>
+        </div>
+        
+        <div class="client-details-body" style="display: grid; grid-template-columns: 300px 1fr; height: 600px;">
+            <!-- Sidebar con info básica -->
+            <div class="client-sidebar" style="padding: 25px; background-color: rgba(255,255,255,0.03); border-right: 1px solid var(--border-color); overflow-y: auto;">
+                <div id="client-basic-info">
+                    <h3 id="client-detail-name" style="color: var(--text-light); font-size: 1.4rem; margin-bottom: 5px;">Nombre Cliente</h3>
+                    <div style="width: 40px; height: 3px; background: var(--accent-secondary); margin-bottom: 20px;"></div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Teléfono</label>
+                        <div id="client-detail-phone" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <button id="btn-whatsapp" class="action-btn small" title="Enviar WhatsApp" style="flex: 1; justify-content: center; background-color: #25D366; border-color: #25D366; color: white; padding: 5px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 20px; height: 20px;">
+                        </button>
+                        <button id="btn-call" class="action-btn small" title="Llamar" style="flex: 1; justify-content: center; padding: 5px;">
+                            <span style="font-size: 1.2rem;">📞</span>
+                        </button>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Dirección</label>
+                        <div id="client-detail-address" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                         <button id="btn-location" class="action-btn small" title="Ver Ubicación" style="width: 100%; justify-content: center; padding: 5px;">
+                            📍 Ver en Mapa
+                        </button>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Tipo</label>
+                        <div id="client-detail-type" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Zona</label>
+                        <div id="client-detail-zone" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Frecuencia</label>
+                        <div id="client-detail-frequency" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Notas</label>
+                        <div id="client-detail-notes" style="color: var(--text-light); font-style: italic; font-size: 0.9rem;">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area with Tabs -->
+            <div class="client-main-content" style="display: flex; flex-direction: column; overflow: hidden;">
+                <div class="tabs-header" style="display: flex; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color);">
+                    <button class="tab-btn active" onclick="switchClientTab('services')" style="padding: 15px 25px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s;">🛠️ Servicios</button>
+                    <button class="tab-btn" onclick="switchClientTab('sites')" style="padding: 15px 25px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s;">🌐 Sucursales</button>
+                    <button class="tab-btn" onclick="switchClientTab('quotes')" style="padding: 15px 25px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s;">📄 Cotizaciones</button>
+                    <button class="tab-btn" onclick="switchClientTab('invoices')" style="padding: 15px 25px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s;">🧾 Facturas</button>
+                    <button class="tab-btn" onclick="switchClientTab('payments')" style="padding: 15px 25px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s;">💰 Pagos</button>
+                </div>
+                
+                <div class="tab-content-area" style="flex: 1; overflow-y: auto; padding: 20px; background-color: var(--bg-medium);">
+                    <div id="client-tab-services" class="tab-pane active">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h4 style="margin: 0; color: var(--text-light);">Historial de Servicios</h4>
+                            <button class="action-btn small" onclick="openServiceModal(null, {client_id: currentClientId})">+ Nuevo</button>
+                        </div>
+                        <div id="client-services-list" class="styled-list"></div>
+                    </div>
+                    
+                    <div id="client-tab-sites" class="tab-pane hidden">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h4 style="margin: 0; color: var(--text-light);">Sucursales / Plantas</h4>
+                            <button class="action-btn small" onclick="openClientSiteModal(null)">+ Nueva</button>
+                        </div>
+                        <div id="client-sites-list" class="styled-list"></div>
+                    </div>
+                    
+                    <div id="client-tab-quotes" class="tab-pane hidden">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h4 style="margin: 0; color: var(--text-light);">Cotizaciones</h4>
+                            <button class="action-btn small" onclick="openQuoteModal(null, currentClientId)">+ Nueva</button>
+                        </div>
+                        <div id="client-quotes-list" class="styled-list"></div>
+                    </div>
+                    
+                    <div id="client-tab-invoices" class="tab-pane hidden">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h4 style="margin: 0; color: var(--text-light);">Facturas</h4>
+                            <button class="action-btn small" onclick="openInvoiceModal(null, currentClientId)">+ Nueva</button>
+                        </div>
+                        <div id="client-invoices-list" class="styled-list"></div>
+                    </div>
+                    
+                    <div id="client-tab-payments" class="tab-pane hidden">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h4 style="margin: 0; color: var(--text-light);">Notas de Pago</h4>
+                            <button class="action-btn small" onclick="openPaymentNoteModal(null, {clientId: currentClientId})">+ Nueva</button>
+                        </div>
+                        <div id="client-payments-list" class="styled-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

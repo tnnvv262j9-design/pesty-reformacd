@@ -1,0 +1,213 @@
+<div class="view-header">
+    <div class="header-content">
+        <h1 class="view-title">🏢 Administración de Empresas</h1>
+        <p class="view-subtitle">Gestión global de límites y planes</p>
+    </div>
+    <div class="header-actions">
+        <button class="action-btn" onclick="renderAdminView()">🔄 Actualizar</button>
+    </div>
+</div>
+
+<div class="cebaderos-tabs-nav">
+    <button class="cebaderos-tab-btn active" data-tab="companies" onclick="switchAdminTab('companies')">Empresas</button>
+    <button class="cebaderos-tab-btn" data-tab="maintenance" onclick="switchAdminTab('maintenance')">Mantenimiento</button>
+</div>
+
+<div id="admin-tab-companies" class="admin-tab-content active">
+    <div class="table-container">
+        <table class="data-table" id="admin-companies-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Empresa</th>
+                    <th>Contacto</th>
+                    <th>Admin Code</th>
+                    <th>Plan</th>
+                    <th>Servicios (Uso/Lim)</th>
+                    <th>Clientes (Uso/Lim)</th>
+                    <th>Técnicos (Uso/Lim)</th>
+                    <th>Cotiz. (Uso/Lim)</th>
+                    <th>Notas (Uso/Lim)</th>
+                    <th>Biblio (Uso/Lim)</th>
+                    <th>Químicos (Uso/Lim)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loaded dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="admin-tab-maintenance" class="admin-tab-content" style="display: none;">
+    <div class="maintenance-container" style="padding: 20px;">
+        <p style="margin-bottom: 20px; color: var(--text-medium);">
+            Activa o desactiva funciones del sistema. Cuando una función está en mantenimiento, los usuarios no podrán acceder a ella.
+        </p>
+        <div id="maintenance-modules-list" class="maintenance-grid">
+            <!-- Loaded dynamically -->
+            <div class="loading-spinner">Cargando funciones...</div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .maintenance-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .maintenance-module-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .maintenance-module-header {
+        padding: 15px;
+        background: var(--bg-secondary);
+        font-weight: bold;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+    .maintenance-module-content {
+        padding: 15px;
+        display: none; /* Hidden by default */
+    }
+    .maintenance-module-content.active {
+        display: block;
+    }
+    .maintenance-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .maintenance-item:last-child {
+        border-bottom: none;
+    }
+    
+    /* Toggle Switch */
+    .maintenance-toggle {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+    }
+    .maintenance-toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .maintenance-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 20px;
+    }
+    .maintenance-slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+    input:checked + .maintenance-slider {
+        background-color: #f44336; /* Red for maintenance */
+    }
+    input:not(:checked) + .maintenance-slider {
+        background-color: #4ade80; /* Green for active */
+    }
+    input:checked + .maintenance-slider:before {
+        transform: translateX(20px);
+    }
+    
+    /* Inverted logic for UI: checked = Maintenance (Red), unchecked = Active (Green) */
+    /* Let's clarify: Active = 1 (Green), Maintenance = 0 (Red) */
+    /* UI Toggle: ON = Active (Green), OFF = Maintenance (Red) */
+    
+    .status-label {
+        font-size: 0.8em;
+        margin-right: 10px;
+        font-weight: bold;
+    }
+    .status-active { color: #4ade80; }
+    .status-maintenance { color: #f44336; }
+</style>
+
+<!-- Modal Editar Límites -->
+<div id="admin-limits-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('admin-limits-modal')">×</span>
+        <h2>Editar Plan y Límites de Empresa</h2>
+        <p id="admin-modal-company-name" style="color: var(--accent-primary); margin-bottom: 20px;"></p>
+        
+        <form id="admin-limits-form">
+            <input type="hidden" id="admin-company-id">
+            
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label>Plan</label>
+                <select id="admin-plan-select">
+                    <option value="trial">Prueba / Sin suscripción</option>
+                    <option value="pesty">PESTY</option>
+                    <option value="pesty_core">PESTY CORE</option>
+                    <option value="enterprise">PLAN EMPRESARIAL</option>
+                </select>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Límite Servicios</label>
+                    <input type="number" id="admin-limit-services" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Límite Clientes</label>
+                    <input type="number" id="admin-limit-clients" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Límite Técnicos</label>
+                    <input type="number" id="admin-limit-techs" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Límite Cotizaciones</label>
+                    <input type="number" id="admin-limit-quotes" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Límite Notas Pago</label>
+                    <input type="number" id="admin-limit-payment-notes" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Límite Biblioteca</label>
+                    <input type="number" id="admin-limit-library" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Acceso a Químicos</label>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                        <input type="checkbox" id="admin-access-chemicals-toggle" style="width: 20px; height: 20px;">
+                        <span id="chemical-access-status" style="font-weight: 500;">Desactivado</span>
+                    </div>
+                    <input type="hidden" id="admin-limit-chemicals">
+                </div>
+            </div>
+            
+            <div class="form-actions" style="margin-top: 20px;">
+                <button type="button" class="secondary-btn" onclick="closeModal('admin-limits-modal')">Cancelar</button>
+                <button type="submit" class="cta-button">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

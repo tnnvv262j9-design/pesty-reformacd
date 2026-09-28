@@ -1,0 +1,377 @@
+<div class="view-header">
+    <h2 class="view-title">Gestión de <span class="highlight">Técnicos</span></h2>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+        <button class="cta-button" onclick="openTechModal()">➕ Agregar Técnico</button>
+        <button id="techs-help-btn" class="learn-more" onclick="openTechsHelpModal()" title="Ayuda del Módulo">
+            <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Ayuda</span>
+        </button>
+    </div>
+</div>
+
+<!-- Modal de Ayuda de Técnicos -->
+<div id="techs-help-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 700px; max-height: 85vh; overflow-y: auto;">
+        <span class="modal-close" onclick="closeModal('techs-help-modal')">×</span>
+        <h2 class="view-title">Guía del Módulo de <span class="highlight">Técnicos</span></h2>
+        
+        <div class="help-content" style="margin-top: 20px;">
+            <div class="help-step">
+                <div class="help-step-number">1</div>
+                <div class="help-step-content">
+                    <h3>Agregar un Nuevo Técnico</h3>
+                    <p>Haz clic en el botón <span class="help-highlight">➕ Agregar Técnico</span>. Registra los datos personales, contacto y detalles laborales como sueldo base y fecha de inicio.</p>
+                    
+                    <div class="mockup-container">
+                        <span class="mockup-label">Formulario de Registro</span>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="mockup-form-group" style="flex: 1;">
+                                <label>Nombre Completo</label>
+                                <div class="mockup-input">Juan Pérez</div>
+                            </div>
+                            <div class="mockup-form-group" style="flex: 1;">
+                                <label>Teléfono</label>
+                                <div class="mockup-input">55 1234 5678</div>
+                            </div>
+                        </div>
+                        <div class="mockup-form-group">
+                            <label>Dirección</label>
+                            <div class="mockup-input">Calle 10, Col. Centro</div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <div class="mockup-form-group" style="flex: 1;">
+                                <label>Fecha de Inicio</label>
+                                <div class="mockup-input">dd/mm/aaaa 📅</div>
+                            </div>
+                            <div class="mockup-form-group" style="flex: 1;">
+                                <label>Sueldo Base (MXN)</label>
+                                <div class="mockup-input">$ 15,000.00</div>
+                            </div>
+                        </div>
+                        <button class="mockup-btn action" style="width: 100%; justify-content: center; background-color: red; border-color: red; color: white;">GUARDAR TÉCNICO</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-step-number">2</div>
+                <div class="help-step-content">
+                    <h3>Ficha del Técnico</h3>
+                    <p>Haz clic en el botón <span class="help-highlight">📄 Ficha</span> para acceder al expediente completo. Aquí podrás gestionar:</p>
+                    <ul style="color: var(--text-medium); margin-bottom: 10px;">
+                        <li><strong>Documentos:</strong> Sube identificaciones, contratos y certificaciones.</li>
+                        <li><strong>Exámenes Médicos:</strong> Control de salud laboral.</li>
+                        <li><strong>EPP:</strong> Historial de entrega de Equipo de Protección Personal.</li>
+                    </ul>
+                    
+                    <div class="mockup-container">
+                        <span class="mockup-label">Vista de Documentos</span>
+                        <div style="display: flex; gap: 10px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 10px;">
+                            <span style="color: var(--accent-primary); font-weight: bold; border-bottom: 2px solid var(--accent-primary);">🩺 Examen Médico</span>
+                            <span style="color: var(--text-medium);">📜 Certificaciones</span>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 40px; height: 40px; background: #e0f2fe; display: flex; align-items: center; justify-content: center; border-radius: 5px;">🖼️</div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: bold; color: var(--text-light);">Examen Médico - 2026</div>
+                                <div style="font-size: 0.8rem; color: var(--text-medium);">04/02/2026</div>
+                            </div>
+                            <button class="mockup-btn" style="padding: 2px 8px; font-size: 0.8rem;">Ver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-step">
+                <div class="help-step-number">3</div>
+                <div class="help-step-content">
+                    <h3>Gestión de EPP (Equipo de Protección)</h3>
+                    <p>Registra la entrega de uniformes y herramientas. Puedes especificar el estado del equipo (Nuevo/Usado), el motivo de la entrega y solicitar la firma digital del técnico como comprobante de recibido.</p>
+                    
+                    <div class="mockup-container">
+                        <span class="mockup-label">Registro de Entrega</span>
+                        <div class="mockup-row" style="border-left: 3px solid var(--error-color);">
+                            <div style="flex: 1;">
+                                <div style="font-weight: bold; color: var(--text-light);">Mascarilla Media Cara <span style="color: var(--error-color); float: right;">1 pza(s)</span></div>
+                                <div style="font-size: 0.8rem; color: var(--text-medium);">Motivo: Daño Accidental | Estado: Nuevo</div>
+                                <div style="margin-top: 5px; font-size: 0.8rem; color: var(--text-light);">Firma: ✍️ <i>(Firmado)</i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="cta-button" onclick="closeModal('techs-help-modal')" style="width: 100%; margin-top: 20px;">¡Entendido!</button>
+    </div>
+</div>
+<div class="toolbar">
+    <input type="text" id="tech-search" placeholder="Buscar por nombre, teléfono o dirección...">
+</div>
+<div class="table-wrapper" style="margin-top: 20px;">
+    <table class="data-table" id="techs-table"></table>
+</div>
+
+<div id="tech-modal" class="modal no-print">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('tech-modal')">×</span>
+        <h2 id="tech-modal-title"></h2>
+        <form id="tech-form">
+            <input type="hidden" id="tech-id">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tech-name">Nombre Completo</label>
+                    <input type="text" id="tech-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="tech-phone">Teléfono</label>
+                    <input type="tel" id="tech-phone" required>
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label for="tech-address">Dirección</label>
+                <input type="text" id="tech-address" required>
+            </div>
+            <div class="form-group full-width">
+                <label for="tech-photo">Foto de Perfil</label>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div id="tech-photo-preview" style="width: 60px; height: 60px; border-radius: 50%; background-color: #eee; background-size: cover; background-position: center; display: none; border: 2px solid var(--accent-primary);"></div>
+                    <input type="file" id="tech-photo" accept="image/*">
+                </div>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tech-start-date">Fecha de Inicio / Antigüedad</label>
+                    <input type="date" id="tech-start-date">
+                </div>
+                <div class="form-group">
+                    <label for="tech-base-salary">Sueldo Base (MXN)</label>
+                    <input type="number" id="tech-base-salary" step="0.01" min="0">
+                </div>
+            </div>
+            <div class="form-group full-width" style="margin-top: 10px; text-align: right;">
+                <button type="button" class="action-btn" id="tech-epp-button" style="display:none;">�️ EPP (Equipo de Protección)</button>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">Guardar Técnico</button>
+        </form>
+    </div>
+</div>
+
+<div id="tech-profile-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 900px; padding: 0;">
+        <div class="modal-header" style="padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0; color: var(--accent-primary); font-family: var(--font-display); letter-spacing: 1px; font-size: 2rem;">Ficha del Técnico</h2>
+            <span class="modal-close" onclick="closeModal('tech-profile-modal')" style="position: static; transform: none; font-size: 2rem;">×</span>
+        </div>
+        
+        <div class="tech-profile-body" style="display: grid; grid-template-columns: 300px 1fr; height: 600px;">
+            <!-- Sidebar con info básica -->
+            <div class="tech-sidebar" style="padding: 25px; background-color: rgba(255,255,255,0.03); border-right: 1px solid var(--border-color); overflow-y: auto;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div id="profile-tech-photo-display" style="width: 120px; height: 120px; border-radius: 50%; background-color: #eee; margin: 0 auto; background-size: cover; background-position: center; border: 3px solid var(--accent-primary); box-shadow: 0 4px 10px rgba(0,0,0,0.3);"></div>
+                </div>
+                <div id="tech-basic-info">
+                    <h3 id="tech-profile-name" style="color: var(--text-light); font-size: 1.4rem; margin-bottom: 5px;">Nombre Técnico</h3>
+                    <div style="width: 40px; height: 3px; background: var(--accent-secondary); margin-bottom: 20px;"></div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Teléfono</label>
+                        <div id="profile-tech-phone" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Código Acceso</label>
+                        <div id="profile-tech-code" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Dirección</label>
+                        <div id="profile-tech-address" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Fecha de Inicio</label>
+                        <div id="profile-tech-start-date" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Antigüedad</label>
+                        <div id="profile-tech-seniority" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                    
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label style="color: var(--text-medium); font-size: 0.85rem; display: block;">Sueldo Base</label>
+                        <div id="profile-tech-salary" style="color: var(--text-light); font-weight: 500;">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area with Tabs -->
+            <div class="tech-main-content" style="display: flex; flex-direction: column; overflow: hidden;">
+                <div class="tabs-header" style="display: flex; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color); overflow-x: auto;">
+                    <button class="tab-btn active" onclick="switchTechProfileTab('Examen Médico')" style="padding: 15px 20px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s; white-space: nowrap;">🩺 Examen Médico</button>
+                    <button class="tab-btn" onclick="switchTechProfileTab('Certificación')" style="padding: 15px 20px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s; white-space: nowrap;">📜 Certificaciones</button>
+                    <button class="tab-btn" onclick="switchTechProfileTab('Ficha Médica')" style="padding: 15px 20px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s; white-space: nowrap;">📋 Ficha Médica</button>
+                    <button class="tab-btn" onclick="switchTechProfileTab('Identificación')" style="padding: 15px 20px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s; white-space: nowrap;">🆔 Identificación</button>
+                    <button class="tab-btn" onclick="switchTechProfileTab('Otros')" style="padding: 15px 20px; background: transparent; border: none; color: var(--text-medium); cursor: pointer; border-bottom: 3px solid transparent; font-weight: 600; transition: all 0.3s; white-space: nowrap;">📂 Otros</button>
+                </div>
+                
+                <div class="tab-content-area" style="flex: 1; overflow-y: auto; padding: 20px; background-color: var(--bg-medium);">
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                        <button class="action-btn" id="btn-add-doc-from-profile">➕ Agregar Documento</button>
+                    </div>
+                    
+                    <div id="tech-docs-container" class="styled-list">
+                        <!-- Documents list will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tech-doc-modal" class="modal no-print">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('tech-doc-modal')">×</span>
+        <h2 id="tech-doc-modal-title">Gestión de Documentos</h2>
+        <h3 id="tech-doc-tech-name" style="color: var(--accent-primary); text-align: center; margin-top: -20px; margin-bottom: 20px;"></h3>
+        
+        <form id="tech-doc-form" enctype="multipart/form-data" style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color);">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tech-doc-type">Tipo de Documento</label>
+                    <select id="tech-doc-type" required data-custom-select>
+                        <option value="Examen Médico">Examen Médico</option>
+                        <option value="Certificación">Certificación</option>
+                        <option value="Ficha Médica">Ficha Médica</option>
+                        <option value="Identificación">Identificación</option>
+                        <option value="Contrato">Contrato</option>
+                        <option value="Licencia">Licencia</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tech-doc-expiration">Vencimiento (Opcional)</label>
+                    <input type="date" id="tech-doc-expiration">
+                </div>
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="tech-doc-file">Archivo (PDF o Imagen)</label>
+                <input type="file" id="tech-doc-file" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+            
+            <button type="submit" class="cta-button" style="width: 100%;">📤 Subir Documento</button>
+        </form>
+        
+        <h3 style="margin-bottom: 15px;">Documentos Existentes</h3>
+        <div id="tech-documents-list" class="styled-list">
+            <!-- Documents will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<div id="tech-epp-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 900px; padding: 0;">
+        <div class="modal-header" style="padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0; color: var(--accent-primary); font-family: var(--font-display); letter-spacing: 1px; font-size: 2rem;">Gestión de EPP</h2>
+            <span class="modal-close" onclick="closeModal('tech-epp-modal')" style="position: static; transform: none; font-size: 2rem;">×</span>
+        </div>
+        
+        <div class="epp-container" style="display: grid; grid-template-columns: 1fr 1fr; height: 600px;">
+            <!-- Panel Izquierdo: Formulario de Entrega -->
+            <div class="epp-form-panel" style="padding: 25px; border-right: 1px solid var(--border-color); overflow-y: auto; background-color: var(--bg-medium);">
+                <h3 style="margin-top: 0; color: var(--text-light); margin-bottom: 20px;">➕ Nueva Entrega de EPP</h3>
+                <form id="epp-delivery-form">
+                    <input type="hidden" id="epp-tech-id">
+                    
+                    <div class="form-group full-width">
+                        <label>Técnico</label>
+                        <div id="epp-tech-name" style="font-weight: bold; color: var(--accent-primary); margin-bottom: 10px;"></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="epp-date">Fecha de Entrega</label>
+                            <input type="date" id="epp-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="epp-type">Tipo de Equipo</label>
+                            <select id="epp-type" required data-custom-select>
+                                <option value="">Seleccione...</option>
+                                <option value="Mascarilla Full Face">Mascarilla Full Face</option>
+                                <option value="Mascarilla Media Cara">Mascarilla Media Cara</option>
+                                <option value="Filtros para gases">Filtros para gases</option>
+                                <option value="Guantes de Nitrilo">Guantes de Nitrilo</option>
+                                <option value="Guantes de Carnaza">Guantes de Carnaza</option>
+                                <option value="Botas de Seguridad">Botas de Seguridad</option>
+                                <option value="Overol Desechable">Overol Desechable</option>
+                                <option value="Overol de Tela">Overol de Tela</option>
+                                <option value="Casco">Casco</option>
+                                <option value="Lentes de Seguridad">Lentes de Seguridad</option>
+                                <option value="Tapones Auditivos">Tapones Auditivos</option>
+                                <option value="Chaleco Reflejante">Chaleco Reflejante</option>
+                                <option value="Faja Lumbar">Faja Lumbar</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="epp-quantity">Cantidad</label>
+                            <input type="number" id="epp-quantity" min="1" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="epp-status">Estado del Equipo</label>
+                            <select id="epp-status" required data-custom-select>
+                                <option value="Nuevo">Nuevo</option>
+                                <option value="Usado (Buen Estado)">Usado (Buen Estado)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="epp-reason">Motivo de Entrega</label>
+                        <select id="epp-reason" required data-custom-select>
+                            <option value="Ingreso Nuevo">Ingreso Nuevo</option>
+                            <option value="Desgaste Natural">Desgaste Natural</option>
+                            <option value="Pérdida/Robo">Pérdida/Robo</option>
+                            <option value="Daño Accidental">Daño Accidental</option>
+                            <option value="Renovación Periódica">Renovación Periódica</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="epp-expiration">Caducidad (Opcional)</label>
+                        <input type="date" id="epp-expiration">
+                        <small style="color: var(--text-medium);">Recomendado para filtros o cartuchos.</small>
+                    </div>
+
+                    <div class="form-group full-width" style="margin-top: 20px;">
+                        <label>Firma de Recibido del Técnico ✍️</label>
+                        <div class="signature-pad-container" style="background: white; border-radius: 4px; overflow: hidden; height: 150px; border: 1px solid var(--border-color);">
+                            <canvas id="epp-signature-pad" style="width: 100%; height: 100%; touch-action: none;"></canvas>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <button type="button" class="action-btn small" id="epp-clear-signature">Borrar Firma</button>
+                            <small style="color: var(--text-medium);">El técnico debe firmar aquí</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="cta-button" style="width: 100%; margin-top: 20px;">� Registrar Entrega</button>
+                </form>
+            </div>
+
+            <!-- Panel Derecho: Historial -->
+            <div class="epp-history-panel" style="padding: 25px; overflow-y: auto; background-color: var(--bg-dark);">
+                <h3 style="margin-top: 0; color: var(--text-light); margin-bottom: 20px;">📜 Historial de Entregas</h3>
+                <div id="epp-history-list" class="styled-list">
+                    <!-- History items will be injected here -->
+                    <div style="text-align: center; color: var(--text-medium); padding: 20px;">Cargando historial...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

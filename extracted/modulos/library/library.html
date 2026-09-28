@@ -1,0 +1,100 @@
+<div id="library-content-wrapper">
+    <div class="view-header">
+        <h2 class="view-title">Biblioteca de <span class="highlight">Documentos</span></h2>
+        <button class="cta-button" onclick="openDocumentModal()" data-i18n="library.upload_document">📤 Subir Documento</button>
+    </div>
+    <div class="toolbar">
+        <input type="text" id="document-search" placeholder="Buscar por nombre o descripción..." style="flex-grow: 2;">
+        <select id="document-filter-category" data-custom-select>
+            <option value="">Todas las Categorías</option>
+            <option value="Licencia">Licencia</option>
+            <option value="Certificado">Certificado</option>
+            <option value="Permiso">Permiso</option>
+            <option value="Seguro">Seguro</option>
+            <option value="Contrato">Contrato</option>
+            <option value="Otros">Otros</option>
+        </select>
+        <select id="document-filter-expiration" data-custom-select>
+            <option value="">Todos</option>
+            <option value="expired">Vencidos</option>
+            <option value="expiring_soon">Por Vencer (30 días)</option>
+            <option value="valid">Vigentes</option>
+        </select>
+    </div>
+    <div class="documents-grid" id="documents-grid">
+        <!-- El contenido se generará con JS -->
+    </div>
+</div>
+
+<!-- Modal para previsualizar documentos -->
+<div id="document-preview-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 90%; max-height: 90vh;">
+        <span class="modal-close" onclick="closeModal('document-preview-modal')">×</span>
+        <h2 id="document-preview-title">Vista Previa del Documento</h2>
+        <div id="document-preview-content" style="margin-top: 20px; min-height: 400px; display: flex; align-items: center; justify-content: center; background-color: var(--bg-dark); border-radius: 8px; padding: 20px;">
+            <div style="text-align: center; color: var(--text-medium);">Cargando...</div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+            <button class="action-btn" onclick="closeModal('document-preview-modal')">Cerrar</button>
+            <button class="cta-button" id="document-preview-download-btn" onclick="">📥 Descargar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para subir documentos -->
+<div id="document-modal" class="modal no-print">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('document-modal')">×</span>
+        <h2 id="document-modal-title">Subir Nuevo Documento</h2>
+        <form id="document-form" enctype="multipart/form-data">
+            <input type="hidden" id="document-id">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="document-name">Nombre del Documento *</label>
+                    <input type="text" id="document-name" required placeholder="Ej: Licencia de Fumigación 2025">
+                </div>
+                <div class="form-group">
+                    <label for="document-category">Categoría *</label>
+                    <select id="document-category" required data-custom-select>
+                        <option value="Licencia">Licencia</option>
+                        <option value="Certificado">Certificado</option>
+                        <option value="Permiso">Permiso</option>
+                        <option value="Seguro">Seguro</option>
+                        <option value="Contrato">Contrato</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label for="document-description">Descripción</label>
+                <textarea id="document-description" rows="3" placeholder="Descripción opcional del documento..."></textarea>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="document-expiration-date">Fecha de Vencimiento (Opcional)</label>
+                    <input type="date" id="document-expiration-date">
+                </div>
+                <div class="form-group">
+                    <label for="document-file">Archivo *</label>
+                    <div class="file-upload-area">
+                        <input type="file" id="document-file" required accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx,.xls,.xlsx" style="display: none;" onchange="handleDocumentFileSelect(event)">
+                        <div class="file-upload-button" onclick="document.getElementById('document-file').click()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Seleccionar archivo</span>
+                        </div>
+                        <div class="file-upload-info">
+                            <small>Formatos permitidos: PDF, imágenes (JPG, PNG, GIF), Word, Excel (máx. 10MB)</small>
+                        </div>
+                        <div id="document-file-preview"></div>
+                        <div id="document-file-name" style="margin-top: 10px; color: var(--text-medium);">Ningún archivo seleccionado</div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">📤 Subir Documento</button>
+        </form>
+    </div>
+</div>

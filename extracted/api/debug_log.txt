@@ -1,0 +1,201 @@
+Input recibido: 
+Data decodificado: 
+Campos faltantes: company_id, client_id, issue_date, items, total
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+
+Input recibido: {"company_id":1,"client_id":1,"issue_date":"2025-08-26","items":[{"name":"Test Item","quantity":1,"price":100}],"subtotal":100,"tax":16,"total":116}
+Data decodificado: stdClass Object
+(
+    [company_id] => 1
+    [client_id] => 1
+    [issue_date] => 2025-08-26
+    [items] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Test Item
+                    [quantity] => 1
+                    [price] => 100
+                )
+
+        )
+
+    [subtotal] => 100
+    [tax] => 16
+    [total] => 116
+)
+

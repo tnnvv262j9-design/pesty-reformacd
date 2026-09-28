@@ -1,0 +1,73 @@
+<div class="view-header">
+    <div class="header-content">
+        <h1 class="view-title">📧 Enviar Correos a Empresas</h1>
+        <p class="view-subtitle">Envío masivo o individual de correos personalizados vía Resend API</p>
+    </div>
+</div>
+
+<div class="email-sender-container" style="max-width: 800px; margin: 0 auto;">
+    <form id="email-sender-form" class="card-panel">
+        <div class="form-group">
+            <label>Destinatarios</label>
+            <select id="email-recipients-select" multiple style="height: 150px; width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-input); color: var(--text-main);">
+                <option value="all" selected>📢 TODAS LAS EMPRESAS (Masivo)</option>
+                <!-- Opciones dinámicas se cargarán aquí -->
+            </select>
+            <small style="display: block; margin-top: 5px; color: var(--text-medium);">
+                Mantén presionado <strong>Ctrl</strong> (Windows) o <strong>Cmd</strong> (Mac) para seleccionar múltiples empresas específicas.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label>Asunto</label>
+            <input type="text" id="email-subject" required placeholder="Ej: Aviso importante de mantenimiento" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Mensaje (HTML)</label>
+            <div class="variables-helper" style="margin-bottom: 10px; padding: 10px; background: var(--bg-secondary); border-radius: 6px; font-size: 0.9em;">
+                <strong>Variables disponibles:</strong> Haz clic para insertar
+                <div style="display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap;">
+                    <button type="button" class="variable-tag" onclick="insertVariable('{{company_name}}')">🏢 Nombre Empresa</button>
+                    <button type="button" class="variable-tag" onclick="insertVariable('{{contact_name}}')">👤 Nombre Contacto</button>
+                    <button type="button" class="variable-tag" onclick="insertVariable('{{email}}')">📧 Email</button>
+                </div>
+            </div>
+            <textarea id="email-message-body" rows="15" required placeholder="<h1>Hola {{contact_name}}!</h1><p>Te escribimos de parte de...</p>" style="width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-input); color: var(--text-main); font-family: monospace;"></textarea>
+        </div>
+
+        <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px;">
+            <button type="button" class="secondary-btn" onclick="previewEmail()">👁️ Vista Previa</button>
+            <button type="submit" class="cta-button">🚀 Enviar Correos</button>
+        </div>
+    </form>
+    
+    <div id="email-sender-status" class="status-box hidden" style="margin-top: 20px; padding: 15px; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border-color);">
+        <h3>Estado del Envío</h3>
+        <div id="email-progress-log" style="max-height: 200px; overflow-y: auto; font-family: monospace; font-size: 0.9em;"></div>
+    </div>
+</div>
+
+<style>
+    .variable-tag {
+        background: var(--accent-primary);
+        color: var(--bg-dark);
+        border: none;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85em;
+        font-weight: 600;
+        transition: opacity 0.2s;
+    }
+    .variable-tag:hover {
+        opacity: 0.8;
+    }
+    .card-panel {
+        background: var(--bg-card);
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 6px var(--shadow-color);
+    }
+</style>

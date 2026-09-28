@@ -1,0 +1,45 @@
+<!-- modulos/chat/view.html -->
+<div class="chat-container" id="chat-container">
+    <div class="chat-sidebar" id="chat-sidebar">
+        <div class="chat-search">
+            <input type="text" id="chat-contact-search" placeholder="Buscar técnico...">
+        </div>
+        <div class="chat-contacts" id="chat-contacts-list">
+            <!-- Contacts loaded via JS -->
+            <div style="padding: 20px; text-align: center; color: var(--text-medium);">Cargando...</div>
+        </div>
+    </div>
+    
+    <div class="chat-main" id="chat-main">
+        <div class="chat-empty-state" id="chat-empty-state">
+            <div style="font-size: 3rem; margin-bottom: 20px;">💬</div>
+            <h3>Selecciona un chat</h3>
+            <p>Comunícate directamente con tus técnicos.</p>
+        </div>
+        
+        <div class="chat-active-view hidden" id="chat-active-view" style="display: none; flex-direction: column; height: 100%;">
+            <div class="chat-header">
+                <div style="display: flex; align-items: center;">
+                    <button id="back-to-list-btn" class="action-btn small" style="display: none; margin-right: 10px;">◀</button>
+                    <div class="contact-avatar" id="current-chat-avatar">T</div>
+                    <div class="chat-header-info">
+                        <div id="current-chat-name">Nombre Técnico</div>
+                        <div id="current-chat-status" style="font-size: 0.8rem; color: var(--text-medium); font-weight: normal;">En línea</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages-area">
+                <!-- Messages loaded via JS -->
+            </div>
+            
+            <form class="chat-input-area" id="chat-form">
+                <input type="text" id="chat-input" placeholder="Escribe un mensaje..." autocomplete="off">
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Chat Button for Technicians (injected globally via script if user is tech) -->
+<!-- But for now, we will use the same view if they access the module -->

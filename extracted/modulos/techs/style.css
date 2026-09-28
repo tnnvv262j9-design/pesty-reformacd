@@ -1,0 +1,67 @@
+/* Technicians Module Styles */
+
+/* Example specific style if needed, currently reusing global styles */
+#techs-view .toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Modal de Ayuda - Ajustes Específicos */
+#techs-help-modal .help-content {
+    padding: 0 10px;
+}
+
+#techs-help-modal .mockup-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+#techs-help-modal .mockup-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-medium);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#techs-help-modal .mockup-form-group {
+    margin-bottom: 10px;
+}
+
+#techs-help-modal .mockup-form-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-medium);
+    margin-bottom: 4px;
+}
+
+#techs-help-modal .mockup-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+#techs-help-modal .mockup-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    cursor: default;
+    color: white;
+}
+
+#techs-help-modal .mockup-btn.action {
+    background-color: var(--accent-primary);
+}

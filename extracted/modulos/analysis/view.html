@@ -1,0 +1,119 @@
+<div id="analysis-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 900px;">
+        <span class="modal-close" onclick="closeModal('analysis-modal')">×</span>
+        <h2 class="view-title">🔍 Análisis Previo y <span class="highlight">Diagnóstico</span></h2>
+        
+        <div class="tabs-header" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            <button class="tab-btn active" onclick="switchAnalysisTab('history')" style="background: none; border: none; color: var(--text-light); font-weight: 600; cursor: pointer; padding: 10px; border-bottom: 2px solid var(--accent-primary);">📊 Historial</button>
+            <button class="tab-btn" onclick="switchAnalysisTab('hse')" style="background: none; border: none; color: var(--text-medium); font-weight: 600; cursor: pointer; padding: 10px;">⚠️ Seguridad (HSE)</button>
+            <button class="tab-btn" onclick="switchAnalysisTab('calculator')" style="background: none; border: none; color: var(--text-medium); font-weight: 600; cursor: pointer; padding: 10px;">🧮 Calculadora</button>
+        </div>
+
+        <!-- Tab: Historial -->
+        <div id="analysis-tab-history" class="analysis-tab-pane">
+            <div class="form-grid">
+                <div class="stat-card">
+                    <h4 style="color: var(--text-medium);">Tendencia de Actividad (Últimas 5 visitas)</h4>
+                    <div id="pest-trend-chart" style="height: 200px; display: flex; align-items: flex-end; justify-content: space-around; padding-top: 20px;">
+                        <!-- Placeholder chart bars -->
+                        <div style="width: 15%; height: 40%; background: var(--accent-secondary); border-radius: 4px 4px 0 0;"></div>
+                        <div style="width: 15%; height: 60%; background: var(--accent-secondary); border-radius: 4px 4px 0 0;"></div>
+                        <div style="width: 15%; height: 30%; background: var(--accent-primary); border-radius: 4px 4px 0 0;"></div>
+                        <div style="width: 15%; height: 20%; background: var(--accent-primary); border-radius: 4px 4px 0 0;"></div>
+                        <div style="width: 15%; height: 10%; background: var(--accent-primary); border-radius: 4px 4px 0 0;"></div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.8rem; color: var(--text-medium); margin-top: 10px;">📉 La actividad ha disminuido en las últimas 3 visitas.</p>
+                </div>
+                <div class="stat-card">
+                    <h4 style="color: var(--text-medium);">Mapa de Calor (Hotspots)</h4>
+                    <ul id="hotspot-list" style="list-style: none; padding: 0; margin-top: 10px;">
+                        <li style="padding: 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                            <span>📦 Almacén</span>
+                            <span style="color: var(--error-color); font-weight: bold;">Alta Actividad (3x)</span>
+                        </li>
+                        <li style="padding: 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                            <span>🍳 Cocina</span>
+                            <span style="color: var(--accent-secondary); font-weight: bold;">Media Actividad (1x)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group full-width" style="margin-top: 20px;">
+                <label>🏆 Productos Exitosos en este Sitio</label>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <span class="stock-status normal">Gel Cucarachicida X</span>
+                    <span class="stock-status normal">Trampas de Pegamento</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Seguridad (HSE) -->
+        <div id="analysis-tab-hse" class="analysis-tab-pane hidden">
+            <div class="form-group full-width" style="background: rgba(239, 68, 68, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid var(--error-color); margin-bottom: 20px;">
+                <h4 style="color: var(--error-color); margin: 0 0 5px 0;">🚨 Alertas del Sitio</h4>
+                <p id="site-alerts-text" style="margin: 0; color: var(--text-light);">Zona de procesamiento de alimentos: <strong>NO USAR polvos</strong>, solo geles y trampas.</p>
+            </div>
+
+            <h4 style="color: var(--text-light); margin-bottom: 15px;">Checklist de Seguridad Previo</h4>
+            <div class="styled-checkbox-group">
+                <label class="neon-checkbox-wrapper">
+                    <input type="checkbox" id="hse-kids-pets">
+                    <div class="neon-checkmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17L4 12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+                    <span class="neon-label">Sin niños ni mascotas presentes</span>
+                </label>
+                <label class="neon-checkbox-wrapper">
+                    <input type="checkbox" id="hse-ventilation">
+                    <div class="neon-checkmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17L4 12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+                    <span class="neon-label">Ventilación adecuada</span>
+                </label>
+                <label class="neon-checkbox-wrapper">
+                    <input type="checkbox" id="hse-ppe">
+                    <div class="neon-checkmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17L4 12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+                    <span class="neon-label">EPP Completo (Mascara, Guantes, Botas)</span>
+                </label>
+                <label class="neon-checkbox-wrapper">
+                    <input type="checkbox" id="hse-food-covered">
+                    <div class="neon-checkmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17L4 12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+                    <span class="neon-label">Alimentos cubiertos o retirados</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Tab: Calculadora -->
+        <div id="analysis-tab-calculator" class="analysis-tab-pane hidden">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Área a Tratar (m²)</label>
+                    <input type="number" id="calc-area" placeholder="Ej: 150" oninput="calculateMixture()">
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Aplicación</label>
+                    <select id="calc-method" data-custom-select onchange="calculateMixture()">
+                        <option value="aspersion">Aspersión (Líquido)</option>
+                        <option value="nebulizacion">Nebulización</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="margin-top: 20px; background: var(--bg-medium);">
+                <h4 style="color: var(--text-medium);">Estimación de Insumos</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <div>
+                        <span style="display: block; font-size: 0.9rem; color: var(--text-medium);">Mezcla Total Requerida</span>
+                        <span id="calc-result-liters" style="font-size: 1.8rem; font-weight: bold; color: var(--accent-primary);">0.0 L</span>
+                    </div>
+                    <div>
+                        <span style="display: block; font-size: 0.9rem; color: var(--text-medium);">Costo Estimado Insumos</span>
+                        <span id="calc-result-cost" style="font-size: 1.8rem; font-weight: bold; color: var(--accent-secondary);">$0.00</span>
+                    </div>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-medium); margin-top: 10px;">* Cálculo basado en dosis estándar de 1L mezcla / 20m² (Aspersión).</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button class="action-btn" onclick="closeModal('analysis-modal')">Cerrar</button>
+            <button class="cta-button" onclick="saveAnalysisAndClose()">✅ Confirmar y Proceder</button>
+        </div>
+    </div>
+</div>

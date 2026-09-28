@@ -1,0 +1,24 @@
+<div class="view-header">
+    <h2 class="view-title">Ruta del Día</h2>
+    <div class="date-selector">
+        <button id="prev-day" class="action-btn small">&lt;</button>
+        <input type="date" id="route-date" class="date-input">
+        <button id="next-day" class="action-btn small">&gt;</button>
+        <button id="reload-map-btn" class="action-btn" style="background: #3B82F6; margin-left: 10px;">🔄 Recargar Mapa</button>
+    </div>
+</div>
+
+<div class="routes-container">
+    <div class="routes-sidebar">
+        <div class="routes-list" id="routes-list">
+            <!-- Lista de servicios se renderiza aquí -->
+        </div>
+        <div class="route-summary">
+            <div id="total-distance">Distancia: -- km</div>
+            <div id="total-time">Tiempo: -- min</div>
+        </div>
+    </div>
+    <div class="routes-map-container">
+        <div id="route-map"></div>
+    </div>
+</div>

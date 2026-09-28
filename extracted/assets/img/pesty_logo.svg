@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100">
+  <defs>
+    <style>
+      .cls-1 { font-size: 80px; fill: #fff; font-family: sans-serif; font-weight: 900; }
+      .cls-2 { fill: #22c55e; }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(10 80)">PESTY</text>
+  <rect class="cls-2" x="290" y="60" width="20" height="20"/>
+</svg>

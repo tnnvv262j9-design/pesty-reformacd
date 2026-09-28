@@ -1,0 +1,93 @@
+<div class="view-header">
+    <h2 class="view-title">Gestión de <span class="highlight">Certificados</span></h2>
+</div>
+
+<div class="info-banner" style="margin-bottom: 20px;">
+    <p>📜 <strong>Certificados Profesionales</strong>: El sistema genera certificados con validez oficial utilizando tu Logotipo, Licencia Sanitaria y los datos reales de cada servicio (Químicos, Plagas, Técnico y Cliente).</p>
+</div>
+
+<div class="toolbar">
+    <div class="search-box">
+        <input type="text" id="certificate-search" placeholder="Buscar por cliente o folio..." onkeyup="filterCertificates()">
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <table class="data-table" id="certificates-table">
+        <thead>
+            <tr>
+                <th>Folio</th>
+                <th>Cliente</th>
+                <th>Fecha Servicio</th>
+                <th>Plantilla Usada</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="certificates-list">
+            <!-- Certificados generados -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal para generar certificado (llenar datos) -->
+<div id="generate-cert-modal" class="modal no-print">
+    <div class="modal-content" style="max-width: 800px;">
+        <span class="modal-close" onclick="closeModal('generate-cert-modal')">×</span>
+        <h2>Generar Certificado de Fumigación</h2>
+        <form id="generate-cert-form">
+            <input type="hidden" id="cert-service-id">
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Servicio Seleccionado</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="cert-service-display" readonly placeholder="Selecciona desde Servicios...">
+                        <button type="button" class="action-btn" onclick="const navBtn = document.querySelector('.main-nav-btn[data-view=services-view]'); if(navBtn) navBtn.click();" title="Cambiar Servicio">🛠️</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cert-folio">Folio del Certificado</label>
+                    <input type="text" id="cert-folio" placeholder="Ej: CERT-001" required>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="cert-sanitary-responsible">Responsable Sanitario</label>
+                    <input type="text" id="cert-sanitary-responsible" placeholder="Nombre del Responsable" required>
+                </div>
+                <div class="form-group">
+                    <label for="cert-city">Ciudad / Estado</label>
+                    <input type="text" id="cert-city" placeholder="Ej: CD Victoria, Tamaulipas">
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="cert-validity">Vigencia (Meses)</label>
+                    <input type="number" id="cert-validity" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="cert-meters">Metros Cuadrados (m²)</label>
+                    <input type="number" id="cert-meters" placeholder="Ej: 150">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="cert-treated-areas">Áreas Tratadas</label>
+                <input type="text" id="cert-treated-areas" placeholder="Ej: Cocina, Comedor, Jardín">
+            </div>
+
+            <div class="form-group full-width">
+                <label for="cert-observations">Observaciones adicionales para el certificado</label>
+                <textarea id="cert-observations" rows="3" placeholder="Estas notas aparecerán en el PDF..."></textarea>
+            </div>
+
+            <div class="alert-info" style="margin-top: 10px;">
+                <p>El sistema usará automáticamente los datos del reporte de servicio (Plagas, Químicos, Fecha, Técnico, etc.) para llenar el documento.</p>
+            </div>
+
+            <button type="submit" class="cta-button" style="width: 100%; margin-top: 20px;">📄 Generar y Descargar PDF</button>
+        </form>
+    </div>
+</div>

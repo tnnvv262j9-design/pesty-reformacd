@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    
+    <!-- Cache Control Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Pesty | Plataforma de Gestión de Servicios y Fumigación</title>
+    <meta name="description" content="Accede a la plataforma Pesty para administrar tus servicios de control de plagas. Panel de control para técnicos y empresas de fumigación. Inicia sesión aquí.">
+    <meta name="keywords" content="pesty login, sistema pesty, plataforma fumigadores, crm control de plagas, software fumigación méxico, administración de servicios de plagas">
+    <meta name="author" content="Pesty">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://software.pesty.com.mx/">
+    <meta property="og:title" content="Pesty | Acceso a Plataforma de Gestión">
+    <meta property="og:description" content="Inicia sesión en Pesty para gestionar tus servicios de control de plagas, reportes, clientes y facturación en tiempo real.">
+    <meta property="og:image" content="https://pesty.com.mx/pesty-app-thumbnail.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://software.pesty.com.mx/">
+    <meta property="twitter:title" content="Pesty | Acceso a Plataforma de Gestión">
+    <meta property="twitter:description" content="Inicia sesión en Pesty para gestionar tus servicios de control de plagas, reportes, clientes y facturación en tiempo real.">
+    <meta property="twitter:image" content="https://pesty.com.mx/pesty-app-thumbnail.png"> 
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pesty",
+      "alternateName": "Pesty Plataforma de Gestión",
+      "url": "https://software.pesty.com.mx/",
+      "description": "Aplicación web para la gestión operativa de empresas de control de plagas y fumigación.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web-based",
+      "offers": {
+        "@type": "Offer",
+        "price": "199",
+        "priceCurrency": "MXN"
+      },
+      "softwareVersion": "2.1",
+      "author": {
+        "@type": "Organization",
+        "name": "Pesty Software",
+        "url": "https://pesty.com.mx/"
+      }
+    }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Teko:wght@500;700&display=swap" rel="stylesheet">
+    
+   
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+   
+    <link rel="stylesheet" href="style.css?v=1.3.5">
+    <link rel="stylesheet" href="modulos/routes/style.css?v=1.0.0">
+    <link rel="stylesheet" href="modulos/library/style.css?v=1.3.0">
+    <link rel="stylesheet" href="modulos/config/style.css?v=1.3.1">
+    <link rel="stylesheet" href="modulos/stats/style.css?v=1.0.0">
+    <link rel="stylesheet" href="modulos/auth/forgot_password.css?v=1.0.2">
+    <style>
+    
+        button.learn-more {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: 0;
+            vertical-align: middle;
+            text-decoration: none;
+            background: transparent;
+            padding: 0;
+            font-size: inherit;
+            font-family: inherit;
+            width: 12rem;
+            height: auto;
+        }
+
+        button.learn-more .circle {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: relative;
+            display: block;
+            margin: 0;
+            width: 3rem;
+            height: 3rem;
+            background: var(--accent-primary); /* Using Pesty accent color */
+            border-radius: 1.625rem;
+        }
+
+        button.learn-more .circle .icon {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            background: var(--bg-dark); /* Contrast color */
+        }
+
+        button.learn-more .circle .icon.arrow {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            left: 0.625rem;
+            width: 1.125rem;
+            height: 0.125rem;
+            background: none;
+        }
+
+        button.learn-more .circle .icon.arrow::before {
+            position: absolute;
+            content: "";
+            top: -0.29rem;
+            right: 0.0625rem;
+            width: 0.625rem;
+            height: 0.625rem;
+            border-top: 0.125rem solid var(--bg-dark); /* Contrast color */
+            border-right: 0.125rem solid var(--bg-dark); /* Contrast color */
+            transform: rotate(45deg);
+        }
+
+        button.learn-more .button-text {
+            transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0.75rem 0;
+            margin: 0 0 0 1.85rem;
+            color: var(--accent-primary); /* Using Pesty accent color */
+            font-weight: 700;
+            line-height: 1.6;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        button.learn-more:hover .circle {
+            width: 100%;
+        }
+
+        button.learn-more:hover .circle .icon.arrow {
+            background: var(--bg-dark);
+            transform: translate(1rem, 0);
+        }
+
+        button.learn-more:hover .button-text {
+            color: var(--bg-dark); /* Contrast color on hover */
+        }
+        
+        /* Modal Help Styles */
+        .help-step {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 20px;
+        }
+        .help-step:last-child {
+            border-bottom: none;
+        }
+        .help-step-number {
+            background: var(--accent-primary);
+            color: var(--bg-dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            font-family: var(--font-display);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .help-step-content h3 {
+            color: var(--accent-primary);
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+        .help-step-content p {
+            color: var(--text-medium);
+            margin: 0 0 15px 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .help-highlight {
+            color: var(--text-light);
+            background: rgba(255,255,255,0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Mockup Styles for Help */
+        .mockup-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .mockup-label {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--accent-secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .mockup-row {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-light);
+            border-radius: 4px;
+        }
+        .mockup-row:last-child { border-bottom: none; }
+        
+        .mockup-btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: default;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: none;
+            color: white;
+        }
+        .mockup-btn.whatsapp { background-color: #25D366; }
+        .mockup-btn.maps { background-color: #4285F4; }
+        .mockup-btn.link { background-color: #6366F1; }
+        .mockup-btn.action { background-color: var(--accent-primary); color: var(--bg-dark); }
+        
+        .mockup-form-group {
+            margin-bottom: 10px;
+        }
+        .mockup-form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            margin-bottom: 4px;
+        }
+        .mockup-input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            border-radius: 4px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="splash-screen">
+        <svg class="pesty-logo" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pesty-gradient-splash" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--accent-primary-light); stop-opacity:1" /><stop offset="100%" style="stop-color:var(--accent-primary); stop-opacity:1" /></linearGradient></defs><title>Logo de Pesty</title><desc>Logo animado del software Pesty para control de plagas</desc><text x="10" y="40" font-family="Teko, sans-serif" font-size="40" font-weight="700" fill="url(#pesty-gradient-splash)">PESTY</text><path d="M125 25 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" fill="var(--accent-primary)" /><path d="M130 20 l 10 10 m 0 -10 l -10 10" stroke="var(--accent-primary)" stroke-width="3" stroke-linecap="round" /></svg>
+    </div>
+
+    <canvas id="particle-canvas"></canvas>
+    <div class="background-wrapper"></div>
+
+    <header class="header no-print" id="header">
+        <div style="display: flex; align-items: center;">
+            <a href="#" class="logo-link">
+                <img src="data:image/svg+xml,%3csvg viewBox='0 0 200 50' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient id='pesty-gradient' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3e%3cstop offset='0%25' style='stop-color:%236EE7B7;' /%3e%3cstop offset='100%25' style='stop-color:%2334D399;' /%3e%3c/linearGradient%3e%3c/defs%3e%3ctext x='10' y='40' font-family='Teko, sans-serif' font-size='40' font-weight='700' fill='url(%23pesty-gradient)'%3ePESTY%3c/text%3e%3cpath d='M125 25 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10' fill='%2334D399' /%3e%3cpath d='M130 20 l 10 10 m 0 -10 l -10 10' stroke='%2334D399' stroke-width='3' stroke-linecap='round' /%3e%3c/svg%3e" alt="Logo de Pesty, software para control de plagas" class="logo-img">
+            </a>
+            <div class="subscription-badge" onclick="openPlansModal()" data-tooltip="Haz clic para ver detalles de tu plan y opciones de mejora." style="margin-left: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; background: rgba(52, 211, 153, 0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid var(--accent-primary); transition: all 0.3s ease;">
+                <span class="plan-name" style="color: var(--accent-primary); font-weight: 600; font-size: 0.9rem;">Plan Básico</span>
+                <span class="info-icon" style="background: var(--accent-primary); color: var(--bg-dark); width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">i</span>
+            </div>
+            <button class="cta-button" style="margin-left: 10px; font-size: 0.8rem; padding: 6px 14px;" onclick="openFeedbackModal()" data-tooltip="Envíanos tus comentarios para seguir mejorando Pesty.">
+                Quejas y sugerencias
+            </button>
+        </div>
+        <!-- <button class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button> -->
+        <nav><ul class="header-nav-links"><li><span id="welcome-message"></span></li><li><a id="logout-btn" class="hidden">Cerrar Sesión</a></li></ul></nav>
+    </header>
+    
+    <!-- Overlay para cerrar menú móvil -->
+    <!-- <div class="nav-overlay" id="nav-overlay" onclick="toggleMobileMenu()"></div> -->
+
+    <nav class="main-nav no-print" id="main-nav">
+        <button class="main-nav-btn active" data-view="dashboard-view" data-i18n="nav.dashboard">🧭 Panel</button>
+        <button class="main-nav-btn" data-view="services-view" data-i18n="nav.services">🛠️ Servicios</button>
+        <button class="main-nav-btn" data-view="routes-view">📍 Rutas</button>
+        <button class="main-nav-btn" data-view="clients-view" data-admin-only data-i18n="nav.clients">👥 Clientes</button>
+        <button class="main-nav-btn" data-view="techs-view" data-admin-only data-i18n="nav.technicians">👨‍🔧 Técnicos</button>
+        <button class="main-nav-btn" data-view="quotes-view" data-admin-only data-i18n="nav.quotes">📄 Cotizaciones</button>
+        <button class="main-nav-btn" data-view="invoices-view" data-admin-only data-i18n="nav.invoices">🧾 Facturas</button>
+        <button class="main-nav-btn" data-view="payment-notes-view" data-admin-only data-i18n="nav.payment_notes">💰 Notas de Pago</button>
+        <button class="main-nav-btn" data-view="expenses-view" data-admin-only data-i18n="nav.expenses">💸 Gastos</button>
+        <button class="main-nav-btn" data-view="chemicals-view" data-admin-only data-tooltip="Gestiona tu inventario de productos químicos, stock y fichas técnicas.">🧪 Inventario</button>
+        <button class="main-nav-btn" data-view="epp-view" data-admin-only data-tooltip="Control de Equipo de Protección Personal, entregas y mantenimientos.">🦺 EPP</button>
+        <button class="main-nav-btn" data-view="cebaderos-view" style="display:none;">🐀 Cebaderos</button>
+        <button class="main-nav-btn" data-view="chat-view">💬 Chat Interno</button>
+        <button class="main-nav-btn" data-view="certificates-view">📜 Certificados</button>
+        
+        <button class="main-nav-btn" data-view="calendar-view" data-i18n="nav.calendar">📅 Calendario</button>
+        <button class="main-nav-btn" data-view="stats-view" data-admin-only data-i18n="nav.statistics">📊 Estadísticas</button>
+        <button class="main-nav-btn" data-view="library-view" data-i18n="nav.library">📖 Biblioteca</button>
+        <button class="main-nav-btn" data-view="settings-view" data-admin-only data-i18n="nav.settings">⚙️ Configuración</button>
+        <button class="main-nav-btn" data-view="companies-view" id="nav-companies-btn" style="display: none;" data-i18n="nav.companies">🏢 Empresas</button>
+        <button class="main-nav-btn" data-view="admin-view" id="nav-admin-btn" style="display: none;">🔑 Admin Global</button>
+        <button class="main-nav-btn" data-view="email-sender-view" id="nav-email-sender-btn" style="display: none;">📧 Enviar Correos</button>
+    </nav>
+
+    <br><br><br>
+
+    <div id="app-container" class="container hidden no-print">
+        <div id="global-loader" class="global-loader hidden">
+            <div class="loader">
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="text"><span>Loading</span></div>
+                <div class="line"></div>
+            </div>
+        </div>
+        
+        <div id="dashboard-view" class="view-container">
+            <div class="view-header"><h2 class="view-title" data-i18n="dashboard.title">Resumen <span class="highlight">General</span></h2></div>
+            <div class="stats-grid">
+                <div class="stat-card" id="stat-card-today"><div class="stat-title" data-i18n="dashboard.today_appointments">📅 Citas para Hoy</div><div class="stat-value" id="stat-today-services">0</div></div>
+                <div class="stat-card" id="stat-card-pending"><div class="stat-title" data-i18n="dashboard.pending_services">⏳ Servicios Pendientes</div><div class="stat-value" id="stat-pending-services">0</div></div>
+                <div class="stat-card" id="stat-card-clients" data-admin-only><div class="stat-title" data-i18n="dashboard.active_clients">👥 Clientes Activos</div><div class="stat-value" id="stat-active-clients">0</div></div>
+                <div class="stat-card" id="stat-card-completed"><div class="stat-title" data-i18n="dashboard.month_services">✅ Servicios del Mes</div><div class="stat-value" id="stat-month-completed">0</div></div>
+            </div>
+            
+
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-main-column">
+                    <div class="dashboard-card" id="upcoming-services-card">
+                        <h3 class="dashboard-card-title">🚀 Próximos Servicios</h3>
+                        <ul class="dashboard-list" id="upcoming-services-list"></ul>
+                    </div>
+                    
+                    <!-- Subscription Widget -->
+                    <div class="dashboard-card" id="subscription-status-card">
+                        <h3 class="dashboard-card-title">💳 Estado de Suscripción</h3>
+                        <div id="subscription-status-widget" style="padding: 5px 0;">
+                            <div class="skeleton" style="height: 60px;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Monthly Stats Widget -->
+                    <div class="dashboard-card" id="dashboard-monthly-stats-card">
+                        <h3 class="dashboard-card-title">📊 Estadísticas del Mes</h3>
+                        <div class="stats-grid" id="dashboard-month-stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+                            <div class="skeleton" style="height: 80px;"></div>
+                            <div class="skeleton" style="height: 80px;"></div>
+                            <div class="skeleton" style="height: 80px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Calendar Widget -->
+                    <div class="dashboard-card" id="dashboard-calendar-card">
+                        <h3 class="dashboard-card-title" style="display: flex; justify-content: space-between; align-items: center;">
+                            📅 Calendario
+                            <div style="font-size: 0.8rem; font-weight: normal; display: flex; gap: 10px;">
+                                <button class="action-btn small" id="mini-cal-prev">◀</button>
+                                <span id="mini-cal-month-year"></span>
+                                <button class="action-btn small" id="mini-cal-next">▶</button>
+                            </div>
+                        </h3>
+                        <div id="dashboard-mini-calendar" style="margin-top: 10px;"></div>
+                    </div>
+                    
+                    <!-- Chemical Alerts Widget (Container) -->
+                    <div id="dashboard-chemical-alerts-card" class="dashboard-card" style="display: none; margin-bottom: 30px;">
+                        <h3 class="dashboard-card-title" style="color: var(--accent-secondary); border-color: var(--accent-secondary);">⚠️ Alertas de Inventario</h3>
+                        <div id="dashboard-chemical-alerts-list" style="max-height: 200px; overflow-y: auto;">
+                            <div class="skeleton"></div>
+                            <div class="skeleton"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-side-column">
+                    <div class="dashboard-card" id="plan-usage-card">
+                        <h3 class="dashboard-card-title">📊 Uso del Plan</h3>
+                        <div id="plan-usage-stats" style="display: flex; flex-direction: column; gap: 15px;">
+                            <div class="skeleton" style="height: 40px;"></div>
+                            <div class="skeleton" style="height: 40px;"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card" id="audit-log-card">
+                        <h3 class="dashboard-card-title">🧾 Actividad de configuración</h3>
+                        <div id="audit-log-list" style="max-height: 220px; overflow-y: auto;">
+                            <div class="skeleton"></div>
+                            <div class="skeleton"></div>
+                            <div class="skeleton"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card" id="whats-new-card">
+                        <h3 class="dashboard-card-title">🎉 Novedades de la Versión 2.2</h3>
+                        <div class="whats-new-content">
+                            <div class="whats-new-item">
+                                <div class="whats-new-icon">📍</div>
+                                <div class="whats-new-text">
+                                    <strong>Rutas Inteligentes (Enterprise)</strong>
+                                    <p>Optimización de recorridos con GPS, cálculo de tiempos y distancias reales.</p>
+                                </div>
+                            </div>
+                            <div class="whats-new-item">
+                                <div class="whats-new-icon">🦺</div>
+                                <div class="whats-new-text">
+                                    <strong>Módulo EPP (Pesty Core)</strong>
+                                    <p>Gestión de Equipo de Protección Personal, asignación y control de vencimientos.</p>
+                                </div>
+                            </div>
+                            <div class="whats-new-item">
+                                <div class="whats-new-icon">🏢</div>
+                                <div class="whats-new-text">
+                                    <strong>Gestión de Sucursales</strong>
+                                    <p>Nuevo botón para agregar múltiples sucursales a un mismo cliente fácilmente.</p>
+                                </div>
+                            </div>
+                            <div class="whats-new-item">
+                                <div class="whats-new-icon">🔄</div>
+                                <div class="whats-new-text">
+                                    <strong>Gastos Fijos</strong>
+                                    <p>Control recurrente de sueldos, rentas y servicios para un balance financiero real.</p>
+                                </div>
+                            </div>
+                            <div class="whats-new-item">
+                                <div class="whats-new-icon">🔍</div>
+                                <div class="whats-new-text">
+                                    <strong>Análisis Previo (Beta)</strong>
+                                    <p>Herramienta experimental para evaluar riesgos y condiciones antes del servicio.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="cta-button" onclick="dismissWhatsNew()" style="width: 100%; margin-top: 15px; background-color: var(--accent-secondary);">Entendido, ocultar novedades</button>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 class="dashboard-card-title">🔔 Actividad Reciente</h3>
+                        <ul class="dashboard-list" id="activity-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="services-view" class="view-container hidden">
+            <div class="view-header">
+                <h2 class="view-title" data-i18n="services.title">Gestión de <span class="highlight">Servicios</span></h2>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+                    <button class="cta-button" id="add-service-btn" onclick="openServiceModal()" data-admin-only data-i18n="services.add_service">➕ Agendar Servicio</button>
+                    <button class="learn-more" onclick="openServicesHelpModal()" title="Ayuda del Módulo">
+                        <span class="circle" aria-hidden="true">
+                        <span class="icon arrow"></span>
+                        </span>
+                        <span class="button-text">Ayuda</span>
+                    </button>
+                </div>
+            </div>
+            <div class="toolbar">
+                <select id="service-filter-status" data-custom-select><option value="">Todos los Estados</option><option>Pendiente</option><option>Realizado</option><option>Cancelado</option></select>
+                <select id="service-filter-tech" data-custom-select><option value="">Todos los Técnicos</option></select>
+                <input type="date" id="service-filter-date">
+                <button class="action-btn" onclick="clearServiceFilters()">Limpiar Filtros</button>
+            </div>
+            <div class="table-wrapper" style="margin-top: 20px;"><table class="data-table" id="services-table"></table></div>
+        </div>
+
+        <div id="routes-view" class="view-container hidden">
+            <!-- Content loaded from modulos/routes/script.js -->
+        </div>
+
+        <div id="clients-view" class="view-container hidden" data-admin-only>
+            <!-- Content loaded from modulos/clients/script.js -->
+        </div>
+
+        <div id="techs-view" class="view-container hidden" data-admin-only>
+            <div class="view-header">
+                <h2 class="view-title">Gestión de <span class="highlight">Técnicos</span></h2>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+                    <button class="cta-button" onclick="openTechModal()">➕ Agregar Técnico</button>
+                    <button id="techs-help-btn" class="learn-more" onclick="openTechsHelpModal()" title="Ayuda del Módulo">
+                        <span class="circle" aria-hidden="true">
+                        <span class="icon arrow"></span>
+                        </span>
+                        <span class="button-text">Ayuda</span>
+                    </button>
+                </div>
+            </div>
+            <div class="toolbar"><input type="text" id="tech-search" placeholder="Buscar por nombre, teléfono o dirección..."></div>
+            <div class="table-wrapper" style="margin-top: 20px;"><table class="data-table" id="techs-table"></table></div>
+        </div>
+
+        <!-- Modal de Ayuda de Técnicos -->
+        <div id="techs-help-modal" class="modal no-print">
+            <div class="modal-content" style="max-width: 700px; max-height: 85vh; overflow-y: auto;">
+                <span class="modal-close" onclick="closeModal('techs-help-modal')">×</span>
+                <h2 class="view-title">Guía del Módulo de <span class="highlight">Técnicos</span></h2>
+                
+                <div class="help-content" style="margin-top: 20px;">
+                    <div class="help-step">
+                        <div class="help-step-number">1</div>
+                        <div class="help-step-content">
+                            <h3>Agregar un Nuevo Técnico</h3>
+                            <p>Haz clic en el botón <span class="help-highlight">➕ Agregar Técnico</span>. Registra los datos personales, contacto y detalles laborales como sueldo base y fecha de inicio.</p>
+                            
+                            <div class="mockup-container">
+                                <span class="mockup-label">Formulario de Registro</span>
+                                <div style="display: flex; gap: 10px;">
+                                    <div class="mockup-form-group" style="flex: 1;">
+                                        <label>Nombre Completo</label>
+                                        <div class="mockup-input">Juan Pérez</div>
+                                    </div>
+                                    <div class="mockup-form-group" style="flex: 1;">
+                                        <label>Teléfono</label>
+                                        <div class="mockup-input">55 1234 5678</div>
+                                    </div>
+                                </div>
+                                <div class="mockup-form-group">
+                                    <label>Dirección</label>
+                                    <div class="mockup-input">Calle 10, Col. Centro</div>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <div class="mockup-form-group" style="flex: 1;">
+                                        <label>Fecha de Inicio</label>
+                                        <div class="mockup-input">dd/mm/aaaa 📅</div>
+                                    </div>
+                                    <div class="mockup-form-group" style="flex: 1;">
+                                        <label>Sueldo Base (MXN)</label>
+                                        <div class="mockup-input">$ 15,000.00</div>
+                                    </div>
+                                </div>
+                                <button class="mockup-btn action" style="width: 100%; justify-content: center; background-color: red; border-color: red; color: white;">GUARDAR TÉCNICO</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-step">
+                        <div class="help-step-number">2</div>
+                        <div class="help-step-content">
+                            <h3>Ficha del Técnico</h3>
+                            <p>Haz clic en el botón <span class="help-highlight">📄 Ficha</span> para acceder al expediente completo. Aquí podrás gestionar:</p>
+                            <ul style="color: var(--text-medium); margin-bottom: 10px;">
+                                <li><strong>Documentos:</strong> Sube identificaciones, contratos y certificaciones.</li>
+                                <li><strong>Exámenes Médicos:</strong> Control de salud laboral.</li>
+                                <li><strong>EPP:</strong> Historial de entrega de Equipo de Protección Personal.</li>
+                            </ul>
+                            
+                            <div class="mockup-container">
+                                <span class="mockup-label">Vista de Documentos</span>
+                                <div style="display: flex; gap: 10px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-bottom: 10px;">
+                                    <span style="color: var(--accent-primary); font-weight: bold; border-bottom: 2px solid var(--accent-primary);">🩺 Examen Médico</span>
+                                    <span style="color: var(--text-medium);">📜 Certificaciones</span>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px;">
+                                    <div style="width: 40px; height: 40px; background: #e0f2fe; display: flex; align-items: center; justify-content: center; border-radius: 5px;">🖼️</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: bold; color: var(--text-light);">Examen Médico - 2026</div>
+                                        <div style="font-size: 0.8rem; color: var(--text-medium);">04/02/2026</div>
+                                    </div>
+                                    <button class="mockup-btn" style="padding: 2px 8px; font-size: 0.8rem;">Ver</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-step">
+                        <div class="help-step-number">3</div>
+                        <div class="help-step-content">
+                            <h3>Gestión de EPP (Equipo de Protección)</h3>
+                            <p>Registra la entrega de uniformes y herramientas. Puedes especificar el estado del equipo (Nuevo/Usado), el motivo de la entrega y solicitar la firma digital del técnico como comprobante de recibido.</p>
+                            
+                            <div class="mockup-container">
+                                <span class="mockup-label">Registro de Entrega</span>
+                                <div class="mockup-row" style="border-left: 3px solid var(--error-color);">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: bold; color: var(--text-light);">Mascarilla Media Cara <span style="color: var(--error-color); float: right;">1 pza(s)</span></div>
+                                        <div style="font-size: 0.8rem; color: var(--text-medium);">Motivo: Daño Accidental | Estado: Nuevo</div>
+                                        <div style="margin-top: 5px; font-size: 0.8rem; color: var(--text-light);">Firma: ✍️ <i>(Firmado)</i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="cta-button" onclick="closeModal('techs-help-modal')" style="width: 100%; margin-top: 20px;">¡Entendido!</button>
+            </div>
+        </div>
+
+        <div id="quotes-view" class="view-container hidden" data-admin-only>
+            <div class="view-header">
+                <h2 class="view-title">Gestión de <span class="highlight">Cotizaciones</span></h2>
+                <button class="cta-button" onclick="openQuoteModal()">➕ Crear Cotización</button>
+            </div>
+            <div class="toolbar">
+                <input type="text" id="quote-search" placeholder="Buscar por cliente o folio...">
+                <select id="quote-filter-status" data-custom-select>
+                    <option value="">Todos los Estados</option>
+                    <option>Nueva</option>
+                    <option>Enviada</option>
+                    <option>Aceptada</option>
+                    <option>Rechazada</option>
+                    <option>Vencida</option>
+                </select>
+            </div>
+            <div class="table-wrapper" style="margin-top: 20px;">
+                <table class="data-table" id="quotes-table"></table>
+            </div>
+        </div>
+
+        <div id="invoices-view" class="view-container hidden" data-admin-only>
+            <div class="view-header">
+                <h2 class="view-title">Gestión de <span class="highlight">Facturas</span></h2>
+                <button class="cta-button" onclick="openInvoiceModal()">➕ Crear Factura</button>
+            </div>
+            <div class="toolbar">
+                <input type="text" id="invoice-search" placeholder="Buscar por cliente o folio...">
+                <select id="invoice-filter-status" data-custom-select>
+                    <option value="">Todos los Estados</option>
+                    <option>Pendiente</option>
+                    <option>Pagada</option>
+                    <option>Cancelada</option>
+                </select>
+            </div>
+            <div class="table-wrapper" style="margin-top: 20px;">
+                <table class="data-table" id="invoices-table"></table>
+            </div>
+        </div>
+
+        <!-- NUEVA VISTA: NOTAS DE PAGO -->
+        <div id="payment-notes-view" class="view-container hidden" data-admin-only>
+            <!-- Content loaded from modulos/payment_notes/script.js -->
+        </div>
+
+        <div id="expenses-view" class="view-container hidden" data-admin-only>
+            <div class="view-header">
+                <h2 class="view-title">Control de <span class="highlight">Gastos</span></h2>
+                <button class="cta-button" onclick="openExpenseModal()">➕ Registrar Gasto</button>
+            </div>
+            <div class="toolbar">
+                <input type="text" id="expense-search" placeholder="Buscar por descripción...">
+                <select id="expense-filter-category" data-custom-select><option value="">Toda Categoría</option></select>
+                <select id="expense-filter-tech" data-custom-select><option value="">Todo Técnico</option></select>
+                <input type="month" id="expense-filter-month">
+            </div>
+            <div class="table-wrapper" style="margin-top: 20px;">
+                <table class="data-table" id="expenses-table"></table>
+            </div>
+        </div>
+
+        <div id="chemicals-view" class="view-container hidden" data-admin-only>
+            <!-- Content loaded from modulos/chemicals/script.js -->
+        </div>
+
+        <div id="epp-view" class="view-container hidden" data-admin-only>
+            <!-- Content loaded from modulos/epp/script.js -->
+        </div>
+
+        <div id="cebaderos-view" class="view-container hidden"></div>
+
+        <div id="calendar-view" class="view-container hidden">
+            <div class="view-header">
+                <h2 class="view-title">Calendario <span class="highlight">Global de Servicios</span></h2>
+            </div>
+            <div class="toolbar" style="margin-bottom: 20px;">
+                <select id="calendar-filter-tech" data-custom-select>
+                    <option value="">Todos los Técnicos</option>
+                </select>
+                <select id="calendar-filter-status" data-custom-select>
+                    <option value="">Todos los Estados</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Realizado">Realizado</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+            </div>
+            <div id="calendar-container"></div>
+        </div>
+
+        <div id="stats-view" class="view-container hidden" data-admin-only>
+            <!-- Content loaded from modulos/stats/script.js -->
+        </div>
+
+        <div id="library-view" class="view-container hidden">
+            <!-- Content loaded from modulos/library/library.html -->
+        </div>
+
+        <div id="email-sender-view" class="view-container hidden" data-admin-only>
+            <!-- Content loaded from modulos/email_sender/view.html -->
+        </div>
+
+        <!-- Settings View Moved to Module -->
+        <div id="settings-view" class="view-container hidden" data-admin-only>
+            <!-- Content loaded from modulos/config/config.html -->
+        </div>
+
+        <div id="companies-view" class="view-container hidden">
+            <div class="view-header">
+                <h2 class="view-title">Gestión de <span class="highlight">Empresas</span></h2>
+            </div>
+            
+            <form id="add-company-form">
+                <h3 class="form-section-title">Agregar Nueva Empresa</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="new-company-name">Nombre de la Empresa</label>
+                        <input type="text" id="new-company-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-company-admin-code">Código de Acceso (Login)</label>
+                        <input type="text" id="new-company-admin-code" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="new-company-plan">Plan de Suscripción</label>
+                        <select id="new-company-plan" required>
+                            <option value="pesty">Plan Pesty</option>
+                            <option value="pesty_core">Plan Pesty Core</option>
+                            <option value="enterprise">Plan Empresarial</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Módulos Permitidos</label>
+                    <div id="new-company-modules" class="styled-checkbox-group">
+                        <!-- Checkboxes de módulos se insertarán aquí con JS -->
+                    </div>
+                </div>
+                <button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">➕ Crear Empresa</button>
+            </form>
+
+            <h3 class="form-section-title">Empresas Existentes</h3>
+            <div class="table-wrapper">
+                <table class="data-table" id="companies-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Código de Acceso</th>
+                            <th>Plan</th>
+                            <th>Módulos Permitidos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las filas se generarán con JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="admin-view" class="view-container hidden">
+            <!-- Content loaded from modulos/admin/script.js -->
+        </div>
+
+        <div id="certificates-view" class="view-container hidden">
+            <!-- Content loaded from modulos/certificates/script.js -->
+        </div>
+
+        <div id="chat-view" class="view-container hidden">
+            <!-- Content loaded from modulos/chat/script.js -->
+        </div>
+
+    </div>
+
+    <!-- MODALES -->
+    <div id="login-modal" class="modal active no-print">
+        <div class="login-bg-preview">
+            <div class="preview-nav"></div>
+            <div class="preview-grid">
+                <div class="preview-card"></div><div class="preview-card"></div><div class="preview-card"></div><div class="preview-card"></div>
+            </div>
+            <div class="preview-main"></div>
+        </div>
+        <div class="modal-content">
+            <svg id="login-mascot" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <title>Mascota de Pesty</title>
+                <desc>Una amigable mascota con antenas y un cuerpo verde.</desc>
+                <g transform="translate(0, 5)">
+                    <path d="M 35 30 A 20 20 0 0 1 65 30 L 70 35 A 25 25 0 0 1 30 35 Z" fill="#FBBF24"/>
+                    <rect x="47" y="20" width="6" height="8" fill="#FBBF24" rx="2"/>
+                    <path d="M 50 45 C 30 45, 25 70, 25 85 L 75 85 C 75 70, 70 45, 50 45 Z" fill="#34D399"/>
+                    <circle cx="42" cy="55" r="5" fill="white"/>
+                    <circle cx="42" cy="55" r="2" fill="black"/>
+                    <circle cx="58" cy="55" r="5" fill="white"/>
+                    <circle cx="58" cy="55" r="2" fill="black"/>
+                    <path d="M 45 70 Q 50 78, 55 70" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M 38 35 Q 25 20, 20 10" stroke="#A3A3A3" stroke-width="2" fill="none"/>
+                    <circle cx="20" cy="10" r="3" fill="#A3A3A3"/>
+                    <path d="M 62 35 Q 75 20, 80 10" stroke="#A3A3A3" stroke-width="2" fill="none"/>
+                    <circle cx="80" cy="10" r="3" fill="#A3A3A3"/>
+                </g>
+            </svg>
+            
+            <svg class="pesty-logo" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pesty-gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:var(--accent-primary-light); stop-opacity:1" /><stop offset="100%" style="stop-color:var(--accent-primary); stop-opacity:1" /></linearGradient></defs><title>Logo de Pesty</title><desc>Logo del software Pesty para control de plagas</desc><text x="10" y="40" font-family="Teko, sans-serif" font-size="40" font-weight="700" fill="url(#pesty-gradient)">PESTY</text><path d="M125 25 a 5 5 0 0 1 0 10 a 5 5 0 0 1 0 -10" fill="var(--accent-primary)" /><path d="M130 20 l 10 10 m 0 -10 l -10 10" stroke="var(--accent-primary)" stroke-width="3" stroke-linecap="round" /></svg>
+            <h2>Bienvenido de <span class="highlight">Nuevo</span></h2>
+            <p class="login-subtitle">Accede a tu panel para una administración eficiente.</p>
+            
+            <!-- Pestañas de login -->
+            <div class="login-tabs">
+                <button type="button" class="login-tab active" data-tab="email">Email / Contraseña</button>
+                <button type="button" class="login-tab" data-tab="code">Código de Acceso</button>
+            </div>
+            
+            <!-- Formulario de Email/Contraseña -->
+            <form id="login-form-email" class="login-form-tab active">
+                <div class="form-group full-width">
+                    <label for="login-email" style="text-align: left;">Email</label>
+                    <div class="input-with-icon">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <input type="email" id="login-email" required placeholder="tu@email.com">
+                        <div class="spinner" id="login-spinner-email"></div>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="login-password" style="text-align: left;">Contraseña</label>
+                    <div class="input-with-icon">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><circle cx="12" cy="16" r="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="login-password" required placeholder="Tu contraseña...">
+                    </div>
+                    <div style="text-align: right; margin-top: 5px;">
+                        <a href="#" id="forgot-password-link" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
+                    </div>
+                </div>
+                <div class="form-group full-width hidden" id="2fa-group">
+                    <label for="login-2fa-code" style="text-align: left;">Código de Verificación</label>
+                    <div class="input-with-icon">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/><path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/></svg>
+                        <input type="text" id="login-2fa-code" placeholder="Código de 6 dígitos" maxlength="6">
+                    </div>
+                    <p class="form-help-text">Se ha enviado un código de verificación a tu email.</p>
+                </div>
+                <button type="submit" class="cta-button" style="width:100%;">Ingresar al Sistema →</button>
+            </form>
+            
+            <!-- Formulario de Código de Acceso -->
+            <form id="login-form-code" class="login-form-tab">
+                <div class="form-group full-width">
+                    <label for="access-code" style="text-align: left;">Código de Acceso Único</label>
+                    <div class="input-with-icon">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/></svg>
+                        <input type="password" id="access-code" name="access_code" required placeholder="Ingresa tu código...">
+                        <div class="spinner" id="login-spinner-code"></div>
+                    </div>
+                </div>
+                <button type="submit" class="cta-button" style="width:100%;">Ingresar al Sistema →</button>
+            </form>
+            
+            <!-- Panel de Suscripciones -->
+            <div class="registration-options">
+                <div class="registration-divider">
+                    <span>¿No tienes cuenta?</span>
+                </div>
+                
+                <div class="registration-buttons">
+                    <button class="button-36" onclick="showRegistrationModal()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Registrarse Gratis</span>
+                    </button>
+                </div>
+                
+                <p class="registration-note">Puedes comenzar gratis y actualizar cuando quieras</p>
+                
+                <div style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                    <a href="client_portal.php" target="_blank" style="color: var(--accent-primary); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span>🔗</span> Ir al Portal de Clientes
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div id="service-modal" class="modal no-print"><div class="modal-content"><span class="modal-close" onclick="closeModal('service-modal')">×</span><h2 id="service-modal-title"></h2><form id="service-form"><input type="hidden" id="service-id"><div class="form-group full-width"><label for="service-client-name">Cliente (Escriba para buscar o crear)</label><div class="custom-autocomplete-wrapper"><input type="text" id="service-client-name" class="custom-autocomplete-input" required autocomplete="off" placeholder="Escriba para buscar o crear..."><div id="client-autocomplete-list" class="custom-autocomplete-list"></div></div></div><div id="service-client-site-group" class="form-group full-width hidden"><label for="service-client-site">Sucursal / Planta (opcional)</label><select id="service-client-site" data-custom-select><option value="">Sucursal principal</option></select></div><div id="new-client-fields" class="hidden"><div class="form-grid"><div class="form-group"><label for="service-new-client-phone">Teléfono del Nuevo Cliente</label><input type="tel" id="service-new-client-phone"></div><div class="form-group"><label for="service-new-client-address">Dirección del Nuevo Cliente</label><input type="text" id="service-new-client-address"></div></div></div><div class="form-grid"><div class="form-group"><label for="service-date">Fecha</label><div class="custom-date-picker" id="custom-date-picker"><input type="text" id="service-date" placeholder="Seleccionar fecha" required><div class="date-picker-icon">📅</div><div class="date-picker-dropdown" id="date-picker-dropdown"><div class="date-picker-header"><button type="button" class="date-nav-btn" id="prev-month">‹</button><span class="current-month" id="current-month"></span><button type="button" class="date-nav-btn" id="next-month">›</button></div><div class="date-picker-calendar" id="date-picker-calendar"></div></div></div></div><div class="form-group"><label for="service-time">Hora</label><div class="custom-time-picker" id="custom-time-picker"><input type="text" id="service-time" placeholder="Seleccionar hora" required><div class="time-picker-icon">🕐</div><div class="time-picker-dropdown" id="time-picker-dropdown"><div class="time-picker-content"><div class="time-column"><div class="time-column-header">Hora</div><div class="time-scroll" id="hour-scroll"></div></div><div class="time-separator">:</div><div class="time-column"><div class="time-column-header">Minuto</div><div class="time-scroll" id="minute-scroll"></div></div><div class="time-column"><div class="time-column-header">Período</div><div class="time-scroll" id="period-scroll"><div class="time-option" data-value="AM">AM</div><div class="time-option" data-value="PM">PM</div></div></div></div></div></div></div></div><div class="form-group full-width"><label for="service-tech-name">Técnico Asignado (Escriba para buscar o crear)</label><div class="custom-autocomplete-wrapper"><input type="text" id="service-tech-name" class="custom-autocomplete-input" required autocomplete="off" placeholder="Escriba para buscar o crear..."><div id="tech-autocomplete-list" class="custom-autocomplete-list"></div></div></div><div id="new-tech-fields" class="hidden"><div class="form-grid"><div class="form-group"><label for="service-new-tech-phone">Teléfono del Nuevo Técnico</label><input type="tel" id="service-new-tech-phone"></div><div class="form-group"><label for="service-new-tech-address">Dirección del Nuevo Técnico</label><input type="text" id="service-new-tech-address"></div></div></div><div class="form-grid"><div class="form-group full-width"><label>Tipos de Servicio</label><div id="service-types" class="styled-checkbox-group"></div></div><div class="form-group"><label for="service-price">Precio del Servicio (<span class="currency-label">MXN</span>)</label><input type="number" id="service-price" step="0.01" placeholder="Ej: 500.00" required></div></div><div class="form-group full-width"><label>Plagas a Tratar</label><div id="service-pests" class="styled-checkbox-group"></div></div><div class="form-group full-width"><label for="service-notes">Notas del Servicio</label><textarea id="service-notes"></textarea></div><div class="form-group full-width hidden" id="service-status-group"><label for="service-status">Estado del Servicio</label><select id="service-status" data-custom-select><option>Pendiente</option><option>Realizado</option><option>Cancelado</option></select></div><button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">Guardar Servicio</button></form></div></div>
+    <div id="expense-modal" class="modal no-print"><div class="modal-content"><span class="modal-close" onclick="closeModal('expense-modal')">×</span><h2 id="expense-modal-title"></h2><form id="expense-form"><input type="hidden" id="expense-id"><div class="form-grid"><div class="form-group"><label for="expense-date">Fecha</label><input type="date" id="expense-date" required></div><div class="form-group"><label for="expense-amount">Monto (<span class="currency-label">MXN</span>)</label><input type="number" id="expense-amount" step="0.01" placeholder="Ej: 350.50" required></div></div><div class="form-group full-width"><label for="expense-description">Descripción</label><input type="text" id="expense-description" placeholder="Ej: Compra de insecticida, gasolina, etc." required></div><div class="form-grid"><div class="form-group"><label for="expense-category">Categoría</label><input type="text" id="expense-category" list="expense-categories-datalist" placeholder="Ej: Químicos, Combustible, Vehículo"><datalist id="expense-categories-datalist"></datalist></div><div class="form-group"><label for="expense-tech">Asociar a Técnico (Opcional)</label><select id="expense-tech" data-custom-select><option value="">Ninguno</option></select></div></div><button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">Guardar Gasto</button></form></div></div>
+    
+    <div id="quote-modal" class="modal no-print">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('quote-modal')">×</span>
+            <h2 id="quote-modal-title"></h2>
+            <form id="quote-form">
+                <input type="hidden" id="quote-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="quote-client">Cliente</label>
+                        <select id="quote-client" data-custom-select required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quote-status">Estado</label>
+                        <select id="quote-status" data-custom-select>
+                            <option>Nueva</option><option>Enviada</option><option>Aceptada</option><option>Rechazada</option><option>Vencida</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quote-issue-date">Fecha de Emisión</label>
+                        <input type="date" id="quote-issue-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quote-due-date">Fecha de Vencimiento</label>
+                        <input type="date" id="quote-due-date" required>
+                    </div>
+                </div>
+                <div class="line-items-container">
+                    <h3 class="form-section-title" style="margin-top:0;">Conceptos</h3>
+                    <div class="line-items-header">
+                        <div>Descripción</div><div>Cantidad</div><div>Precio Unit.</div><div>Total</div><div></div>
+                    </div>
+                    <div id="quote-line-items"></div>
+                    <button type="button" class="action-btn" onclick="addDocumentLineItem('quote')">+ Añadir Concepto</button>
+                </div>
+                <div class="document-totals">
+                    <table>
+                        <tbody>
+                            <tr><td class="label">Subtotal:</td><td class="value" id="quote-subtotal"></td></tr>
+                            <tr><td class="label">Descuento:</td><td class="value"><input type="number" id="quote-discount" value="0" step="0.01" style="text-align:right; width:120px; padding: 5px;"></td></tr>
+                            <tr class="grand-total"><td class="label">Total:</td><td class="value" id="quote-total"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group full-width" style="margin-top: 20px;">
+                    <label for="quote-notes">Notas (Validez, condiciones, etc.)</label>
+                    <textarea id="quote-notes"></textarea>
+                </div>
+                <button type="button" class="cta-button" style="width:100%; margin-top: 20px;" onclick="window.handleSaveQuote(event)">Guardar Cotización</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="invoice-modal" class="modal no-print">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('invoice-modal')">×</span>
+            <h2 id="invoice-modal-title"></h2>
+            <form id="invoice-form">
+                <input type="hidden" id="invoice-id">
+                <input type="hidden" id="invoice-quote-id">
+                
+                <!-- Información del Emisor -->
+                <h3 class="form-section-title">Datos del Emisor</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoice-issuer-rfc">RFC del Emisor</label>
+                        <input type="text" id="invoice-issuer-rfc" placeholder="XAXX010101000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-expedition-place">Lugar de Expedición (CP)</label>
+                        <input type="text" id="invoice-expedition-place" placeholder="12345" required>
+                    </div>
+                </div>
+                
+                <!-- Información del Receptor -->
+                <h3 class="form-section-title">Datos del Receptor</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoice-client">Cliente</label>
+                        <select id="invoice-client" data-custom-select required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-client-rfc">RFC del Cliente</label>
+                        <input type="text" id="invoice-client-rfc" placeholder="XAXX010101000" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoice-cfdi-use">Uso del CFDI</label>
+                        <select id="invoice-cfdi-use" data-custom-select required>
+                            <option value="G01">G01 - Adquisición de mercancías</option>
+                            <option value="G02">G02 - Devoluciones, descuentos o bonificaciones</option>
+                            <option value="G03">G03 - Gastos en general</option>
+                            <option value="I04">I04 - Construcciones, instalaciones y reparaciones</option>
+                            <option value="P01">P01 - Por definir</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-tax-regime">Régimen Fiscal del Receptor</label>
+                        <select id="invoice-tax-regime" data-custom-select required>
+                            <option value="601">601 - General de Ley Personas Morales</option>
+                            <option value="603">603 - Personas Morales con Fines no Lucrativos</option>
+                            <option value="605">605 - Sueldos y Salarios e Ingresos Asimilados a Salarios</option>
+                            <option value="606">606 - Arrendamiento</option>
+                            <option value="612">612 - Personas Físicas con Actividades Empresariales y Profesionales</option>
+                            <option value="614">614 - Ingresos por intereses</option>
+                            <option value="616">616 - Sin obligaciones fiscales</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Información de la Factura -->
+                <h3 class="form-section-title">Datos de la Factura</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoice-issue-date">Fecha de Emisión</label>
+                        <input type="date" id="invoice-issue-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-status">Estado</label>
+                        <select id="invoice-status" data-custom-select>
+                            <option>Pendiente</option><option>Pagada</option><option>Cancelada</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoice-payment-method">Método de Pago</label>
+                        <select id="invoice-payment-method" data-custom-select required>
+                            <option value="PUE">PUE - Pago en una sola exhibición</option>
+                            <option value="PPD">PPD - Pago en parcialidades o diferido</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-payment-form">Forma de Pago</label>
+                        <select id="invoice-payment-form" data-custom-select required>
+                            <option value="01">01 - Efectivo</option>
+                            <option value="02">02 - Cheque nominativo</option>
+                            <option value="03">03 - Transferencia electrónica de fondos</option>
+                            <option value="04">04 - Tarjeta de crédito</option>
+                            <option value="28">28 - Tarjeta de débito</option>
+                            <option value="99">99 - Por definir</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line-items-container">
+                    <h3 class="form-section-title" style="margin-top:0;">Conceptos</h3>
+                    <div class="line-items-header">
+                        <div>Descripción</div><div>Cantidad</div><div>Precio Unit.</div><div>Total</div><div></div>
+                    </div>
+                    <div id="invoice-line-items"></div>
+                    <button type="button" class="action-btn" onclick="addDocumentLineItem('invoice')">+ Añadir Concepto</button>
+                </div>
+                <div class="document-totals">
+                    <table>
+                        <tbody>
+                            <tr><td class="label">Subtotal:</td><td class="value" id="invoice-subtotal"></td></tr>
+                            <tr><td class="label">IVA (16%):</td><td class="value" id="invoice-tax"></td></tr>
+                            <tr class="grand-total"><td class="label">Total:</td><td class="value" id="invoice-total"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Información Adicional -->
+                <h3 class="form-section-title">Información Adicional</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoice-currency">Moneda</label>
+                        <select id="invoice-currency" data-custom-select required>
+                            <option value="MXN">MXN - Peso Mexicano</option>
+                            <option value="USD">USD - Dólar Americano</option>
+                            <option value="EUR">EUR - Euro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoice-exchange-rate">Tipo de Cambio</label>
+                        <input type="number" id="invoice-exchange-rate" step="0.0001" value="1.0000" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="invoice-notes">Observaciones</label>
+                    <textarea id="invoice-notes" placeholder="Condiciones comerciales, términos de pago, etc."></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">Guardar Factura</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div id="service-report-form-modal" class="modal no-print"><div class="modal-content"><span class="modal-close" onclick="closeModal('service-report-form-modal')">×</span><h2>Generar Reporte de Servicio</h2><form id="service-report-form"><input type="hidden" id="report-service-id"><h3 class="form-section-title">1. Datos del Cliente</h3><div class="form-grid"><div class="form-group"><label>Nombre</label><input type="text" id="report-client-name" readonly></div><div class="form-group"><label>Teléfono</label><input type="text" id="report-client-phone" readonly></div><div class="form-group full-width"><label>Dirección</label><input type="text" id="report-client-address" readonly></div><div class="form-group full-width"><label for="report-client-contact">Responsable en sitio</label><input type="text" id="report-client-contact" placeholder="Nombre de quien recibe el servicio"></div></div><h3 class="form-section-title">2. Datos del Servicio</h3><div class="form-grid"><div class="form-group"><label>Fecha y Hora</label><input type="text" id="report-service-date" readonly></div><div class="form-group"><label>Técnico</label><input type="text" id="report-service-tech" readonly></div><div class="form-group"><label for="report-service-duration">Duración (mins)</label><input type="number" id="report-service-duration" placeholder="Ej: 60"></div><div class="form-group"><label>Tipo de Servicio</label><input type="text" id="report-service-type" readonly></div></div><h3 class="form-section-title">3. Uso de Químicos</h3>
+<div class="form-grid">
+    <div class="form-group">
+        <label for="report-chemical-select">Seleccionar Químico</label>
+        <select id="report-chemical-select" data-custom-select>
+            <option value="">Seleccione...</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="report-chemical-dose">Dosis / Cantidad</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="number" id="report-chemical-dose" placeholder="Cant." step="0.01">
+            <select id="report-chemical-unit" style="width: 80px;" data-custom-select>
+                <option value="ml">ml</option>
+                <option value="l">L</option>
+                <option value="g">g</option>
+                <option value="kg">kg</option>
+                <option value="oz">oz</option>
+                <option value="piezas">pzas</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <button type="button" class="action-btn" id="btn-add-chemical" style="width: 100%;">+ Agregar Químico al Reporte</button>
+</div>
+<div id="report-chemicals-list" style="margin-bottom: 20px;">
+    <!-- List of added chemicals -->
+</div>
+<input type="hidden" id="report-chemicals-data" name="chemicals_data">
+
+<div id="standard-report-sections">
+<h3 class="form-section-title">4. Diagnóstico y Plaga</h3><div class="form-group full-width"><label>Plaga(s) detectada(s)</label><div id="report-detected-pests-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));"></div></div><div class="form-grid"><div class="form-group"><label for="report-infestation-level">Nivel de infestación</label><select id="report-infestation-level" data-custom-select><option>Leve</option><option>Moderada</option><option>Alta</option></select></div></div><div class="form-group full-width"><label for="report-inspection-method">Método de inspección</label><input type="text" id="report-inspection-method" value="Inspección Visual" placeholder="Visual, trampas, sensores..."></div><h3 class="form-section-title">4. Tratamiento Aplicado</h3><div class="form-group full-width"><label>Áreas Tratadas</label><div id="report-affected-areas-group" class="styled-checkbox-group"></div></div><div class="form-group full-width"><label>Método(s) utilizado(s)</label><div id="report-treatment-methods-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));"></div></div><div class="form-group full-width"><label for="report-safety-recommendations">Recomendaciones de seguridad post-servicio</label><textarea id="report-safety-recommendations" rows="4" placeholder=""></textarea></div>
+</div>
+
+<!-- HOTEL REPORT SECTIONS -->
+<div id="hotel-report-sections" class="hidden">
+    <h3 class="form-section-title">3. Diagnóstico y Método</h3>
+    
+    <!-- Tipo de Tratamiento -->
+    <div class="form-group full-width">
+        <label>Tipo de tratamiento</label>
+        <div id="report-hotel-treatment-type-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+            <label><input type="checkbox" value="Preventivo"><span class="checkmark"></span> Preventivo</label>
+            <label><input type="checkbox" value="Correctivo"><span class="checkmark"></span> Correctivo</label>
+            <label><input type="checkbox" value="Focalizado"><span class="checkmark"></span> Focalizado</label>
+        </div>
+    </div>
+
+    <!-- Motivo del Tratamiento -->
+    <div class="form-group full-width">
+        <label>Motivo del tratamiento</label>
+        <input type="text" id="report-hotel-treatment-reason" placeholder="Motivo del servicio...">
+    </div>
+
+    <!-- Método de Inspección -->
+    <div class="form-group full-width">
+        <label>Método de Inspección</label>
+        <div id="report-hotel-inspection-method-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+            <label><input type="checkbox" value="Inspección visual"><span class="checkmark"></span> Inspección visual</label>
+            <label><input type="checkbox" value="Monitoreo con trampas"><span class="checkmark"></span> Monitoreo con trampas</label>
+            <label><input type="checkbox" value="Revisión de drenajes"><span class="checkmark"></span> Revisión de drenajes</label>
+            <label><input type="checkbox" value="Revisión de habitaciones ocupadas"><span class="checkmark"></span> Revisión de habitaciones ocupadas</label>
+            <label><input type="checkbox" value="Revisión de habitaciones desocupadas"><span class="checkmark"></span> Revisión de habitaciones desocupadas</label>
+            <label><input type="checkbox" value="Revisión de áreas de alimentos"><span class="checkmark"></span> Revisión de áreas de alimentos</label>
+            <label><input type="checkbox" value="Inspección perimetral"><span class="checkmark"></span> Inspección perimetral</label>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Diagnóstico de Áreas</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+            <label>Áreas Inspeccionadas</label>
+            <div id="report-hotel-areas-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+        </div>
+        <div class="form-group full-width">
+            <label>Plagas Detectadas</label>
+            <div id="report-hotel-pests-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+        </div>
+        <div class="form-group full-width">
+            <label>Habitaciones con Actividad (Números)</label>
+            <input type="text" id="report-hotel-room-activity" placeholder="Ej: 101, 205, 304">
+        </div>
+        <div class="form-group full-width">
+            <label>Habitaciones Tratadas (Números)</label>
+            <input type="text" id="report-hotel-treated-rooms" placeholder="Ej: 201-215, 301">
+        </div>
+    </div>
+    <div class="form-grid">
+         <div class="form-group">
+            <label>Nivel de Infestación Global</label>
+            <select id="report-hotel-infestation-level" data-custom-select>
+                <option value="Nulo">Nulo</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+            </select>
+        </div>
+    </div>
+    <h3 class="form-section-title">4. Tratamiento y Observaciones</h3>
+    <div class="form-group full-width">
+        <label>Métodos de Control</label>
+        <div id="report-hotel-methods-group" class="styled-checkbox-group"></div>
+    </div>
+    
+    <!-- New Fields for Evidencia y Observaciones (Hotel Specific) -->
+    <h3 class="form-section-title">7. Evidencia y Observaciones (Hotel)</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+             <label>Condiciones detectadas</label>
+             <textarea id="report-hotel-conditions" rows="3" placeholder="Descripción de condiciones detectadas..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Riesgos sanitarios observados</label>
+             <textarea id="report-hotel-sanitary-risks" rows="3" placeholder="Riesgos sanitarios..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Acciones recomendadas al hotel</label>
+             <textarea id="report-hotel-recommendations" rows="3" placeholder="Acciones recomendadas..."></textarea>
+        </div>
+    </div>
+
+    <div class="form-grid">
+        <div class="form-group">
+             <label>Observaciones de Limpieza (Housekeeping)</label>
+             <textarea id="report-hotel-housekeeping" rows="3" placeholder="Observaciones sobre limpieza..."></textarea>
+        </div>
+        <div class="form-group">
+             <label>Observaciones de Mantenimiento</label>
+             <textarea id="report-hotel-maintenance" rows="3" placeholder="Observaciones de mantenimiento..."></textarea>
+        </div>
+    </div>
+</div>
+<!-- CASINO REPORT SECTIONS -->
+<div id="casino-report-sections" class="hidden">
+    <h3 class="form-section-title">3. Diagnóstico Casino</h3>
+    
+    <!-- Tipo de Tratamiento -->
+    <div class="form-group full-width">
+        <label>Tipo de tratamiento</label>
+        <div id="report-casino-treatment-type-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+            <label><input type="checkbox" value="Preventivo"><span class="checkmark"></span> Preventivo</label>
+            <label><input type="checkbox" value="Correctivo"><span class="checkmark"></span> Correctivo</label>
+            <label><input type="checkbox" value="Focalizado"><span class="checkmark"></span> Focalizado</label>
+        </div>
+    </div>
+
+    <!-- Motivo del Tratamiento -->
+    <div class="form-group full-width">
+        <label>Motivo del tratamiento</label>
+        <input type="text" id="report-casino-treatment-reason" placeholder="Motivo del servicio...">
+    </div>
+
+    <!-- Método de Inspección -->
+    <div class="form-group full-width">
+        <label>Método de Inspección</label>
+        <div id="report-casino-inspection-method-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+            <label><input type="checkbox" value="Inspección visual"><span class="checkmark"></span> Inspección visual</label>
+            <label><input type="checkbox" value="Monitoreo con trampas"><span class="checkmark"></span> Monitoreo con trampas</label>
+            <label><input type="checkbox" value="Revisión de drenajes"><span class="checkmark"></span> Revisión de drenajes</label>
+            <label><input type="checkbox" value="Revisión de máquinas"><span class="checkmark"></span> Revisión de máquinas</label>
+            <label><input type="checkbox" value="Revisión de alfombras"><span class="checkmark"></span> Revisión de alfombras</label>
+            <label><input type="checkbox" value="Revisión de áreas de alimentos"><span class="checkmark"></span> Revisión de áreas de alimentos</label>
+            <label><input type="checkbox" value="Inspección perimetral"><span class="checkmark"></span> Inspección perimetral</label>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Diagnóstico de Áreas</h3>
+    <div class="form-group full-width">
+        <label>Áreas Inspeccionadas</label>
+        <div id="report-casino-areas-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+            <label><input type="checkbox" value="Sala de Juegos"><span class="checkmark"></span> Sala de Juegos</label>
+            <label><input type="checkbox" value="Máquinas Tragamonedas"><span class="checkmark"></span> Máquinas</label>
+            <label><input type="checkbox" value="Mesas de Juego"><span class="checkmark"></span> Mesas de Juego</label>
+            <label><input type="checkbox" value="Caja/Bóveda"><span class="checkmark"></span> Caja/Bóveda</label>
+            <label><input type="checkbox" value="Bar/Restaurante"><span class="checkmark"></span> Bar/Restaurante</label>
+            <label><input type="checkbox" value="Cocina"><span class="checkmark"></span> Cocina</label>
+            <label><input type="checkbox" value="Baños"><span class="checkmark"></span> Baños</label>
+            <label><input type="checkbox" value="Oficinas"><span class="checkmark"></span> Oficinas</label>
+            <label><input type="checkbox" value="Almacén"><span class="checkmark"></span> Almacén</label>
+            <label><input type="checkbox" value="Cuarto de Máquinas"><span class="checkmark"></span> Cuarto de Máquinas</label>
+        </div>
+    </div>
+
+    <div class="form-group full-width">
+        <label>Plaga(s) detectada(s)</label>
+        <div id="report-casino-pests-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group full-width">
+            <label>Actividad en Salas (Detalle)</label>
+            <input type="text" id="report-casino-room-activity" placeholder="Ej: Sala VIP, Barra Principal...">
+        </div>
+        <div class="form-group full-width">
+            <label>Máquinas/Equipos Tratados (Detalle)</label>
+            <input type="text" id="report-casino-treated-machines" placeholder="Ej: Fila 3, Máquinas 20-30, Barra principal...">
+        </div>
+    </div>
+
+    <div class="form-grid">
+         <div class="form-group">
+            <label>Nivel de Infestación Global</label>
+            <select id="report-casino-infestation-level" data-custom-select>
+                <option value="Nulo">Nulo</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">4. Tratamiento y Observaciones</h3>
+    <div class="form-group full-width">
+        <label>Métodos de Control</label>
+        <div id="report-casino-methods-group" class="styled-checkbox-group"></div>
+    </div>
+    
+    <h3 class="form-section-title">7. Evidencia y Observaciones (Casino)</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+             <label>Condiciones detectadas</label>
+             <textarea id="report-casino-conditions" rows="3" placeholder="Descripción de condiciones detectadas..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Riesgos sanitarios observados</label>
+             <textarea id="report-casino-sanitary-risks" rows="3" placeholder="Riesgos sanitarios..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Acciones Recomendadas</label>
+             <textarea id="report-casino-recommendations" rows="3" placeholder="Recomendaciones para el personal del casino..."></textarea>
+        </div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group">
+             <label>Observaciones de Limpieza (Housekeeping)</label>
+             <textarea id="report-casino-housekeeping" rows="3" placeholder="Observaciones de limpieza en áreas de juego/cocina..."></textarea>
+        </div>
+        <div class="form-group">
+             <label>Observaciones de Mantenimiento</label>
+             <textarea id="report-casino-maintenance" rows="3" placeholder="Grietas, fugas, accesos de plagas..."></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- MAQUILADORA REPORT SECTIONS -->
+<div id="maquiladora-report-sections" class="hidden">
+    <h3 class="form-section-title">3. Diagnóstico Maquiladora</h3>
+    
+    <div class="form-group full-width">
+        <label>Tipo de tratamiento</label>
+        <div id="report-maquiladora-treatment-type-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+            <label><input type="checkbox" value="Preventivo"><span class="checkmark"></span> Preventivo</label>
+            <label><input type="checkbox" value="Correctivo"><span class="checkmark"></span> Correctivo</label>
+            <label><input type="checkbox" value="Focalizado"><span class="checkmark"></span> Focalizado</label>
+            <label><input type="checkbox" value="Auditoría"><span class="checkmark"></span> Auditoría</label>
+        </div>
+    </div>
+
+    <div class="form-group full-width">
+        <label>Motivo del tratamiento</label>
+        <input type="text" id="report-maquiladora-treatment-reason" placeholder="Motivo del servicio...">
+    </div>
+
+    <div class="form-group full-width">
+        <label>Método de Inspección</label>
+        <div id="report-maquiladora-inspection-method-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+            <label><input type="checkbox" value="Inspección visual"><span class="checkmark"></span> Inspección visual</label>
+            <label><input type="checkbox" value="Monitoreo con trampas"><span class="checkmark"></span> Monitoreo con trampas</label>
+            <label><input type="checkbox" value="Revisión de cebaderos"><span class="checkmark"></span> Revisión de cebaderos</label>
+            <label><input type="checkbox" value="Revisión de lámparas UV"><span class="checkmark"></span> Revisión de lámparas UV</label>
+            <label><input type="checkbox" value="Inspección de racks"><span class="checkmark"></span> Inspección de racks</label>
+            <label><input type="checkbox" value="Inspección perimetral"><span class="checkmark"></span> Inspección perimetral</label>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Diagnóstico de Áreas</h3>
+    <div class="form-group full-width">
+        <label>Áreas Inspeccionadas</label>
+        <div id="report-maquiladora-areas-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+    </div>
+
+    <div class="form-group full-width">
+        <label>Plaga(s) detectada(s)</label>
+        <div id="report-maquiladora-pests-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group full-width">
+            <label>Detalle de Hallazgos</label>
+            <input type="text" id="report-maquiladora-activity-detail" placeholder="Ej: Actividad en área de descarga, Racks pasillo 5...">
+        </div>
+    </div>
+
+    <div class="form-grid">
+         <div class="form-group">
+            <label>Nivel de Infestación Global</label>
+            <select id="report-maquiladora-infestation-level" data-custom-select>
+                <option value="Nulo">Nulo</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">4. Tratamiento y Observaciones</h3>
+    <div class="form-group full-width">
+        <label>Métodos de Control</label>
+        <div id="report-maquiladora-methods-group" class="styled-checkbox-group"></div>
+    </div>
+    
+    <h3 class="form-section-title">7. Evidencia y Observaciones (Maquiladora)</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+             <label>Condiciones detectadas</label>
+             <textarea id="report-maquiladora-conditions" rows="3" placeholder="Descripción de condiciones detectadas..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Riesgos sanitarios / Inocuidad</label>
+             <textarea id="report-maquiladora-sanitary-risks" rows="3" placeholder="Riesgos de contaminación cruzada, plagas..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Acciones Recomendadas</label>
+             <textarea id="report-maquiladora-recommendations" rows="3" placeholder="Recomendaciones operativas..."></textarea>
+        </div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group">
+             <label>Observaciones de Limpieza</label>
+             <textarea id="report-maquiladora-housekeeping" rows="3" placeholder="Observaciones de limpieza..."></textarea>
+        </div>
+        <div class="form-group">
+             <label>Observaciones de Mantenimiento</label>
+             <textarea id="report-maquiladora-maintenance" rows="3" placeholder="Observaciones de mantenimiento estructural..."></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- ALMACÉN REPORT SECTIONS -->
+<div id="almacen-report-sections" class="hidden">
+    <h3 class="form-section-title">3. Diagnóstico Almacén</h3>
+    
+    <div class="form-group full-width">
+        <label>Tipo de tratamiento</label>
+        <div id="report-almacen-treatment-type-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+            <label><input type="checkbox" value="Preventivo"><span class="checkmark"></span> Preventivo</label>
+            <label><input type="checkbox" value="Correctivo"><span class="checkmark"></span> Correctivo</label>
+            <label><input type="checkbox" value="Focalizado"><span class="checkmark"></span> Focalizado</label>
+        </div>
+    </div>
+
+    <div class="form-group full-width">
+        <label>Motivo del tratamiento</label>
+        <input type="text" id="report-almacen-treatment-reason" placeholder="Motivo del servicio...">
+    </div>
+
+    <div class="form-group full-width">
+        <label>Método de Inspección</label>
+        <div id="report-almacen-inspection-method-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+            <label><input type="checkbox" value="Inspección visual"><span class="checkmark"></span> Inspección visual</label>
+            <label><input type="checkbox" value="Monitoreo con trampas"><span class="checkmark"></span> Monitoreo con trampas</label>
+            <label><input type="checkbox" value="Revisión de cebaderos"><span class="checkmark"></span> Revisión de cebaderos</label>
+            <label><input type="checkbox" value="Inspección de racks"><span class="checkmark"></span> Inspección de racks</label>
+            <label><input type="checkbox" value="Inspección perimetral"><span class="checkmark"></span> Inspección perimetral</label>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Diagnóstico de Áreas</h3>
+    <div class="form-group full-width">
+        <label>Áreas Inspeccionadas</label>
+        <div id="report-almacen-areas-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+    </div>
+
+    <div class="form-group full-width">
+        <label>Plaga(s) detectada(s)</label>
+        <div id="report-almacen-pests-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group full-width">
+            <label>Detalle de Actividad</label>
+            <input type="text" id="report-almacen-activity-detail" placeholder="Ej: Actividad en zona de carga...">
+        </div>
+    </div>
+
+    <div class="form-grid">
+         <div class="form-group">
+            <label>Nivel de Infestación Global</label>
+            <select id="report-almacen-infestation-level" data-custom-select>
+                <option value="Nulo">Nulo</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">4. Tratamiento y Observaciones</h3>
+    <div class="form-group full-width">
+        <label>Métodos de Control</label>
+        <div id="report-almacen-methods-group" class="styled-checkbox-group"></div>
+    </div>
+    
+    <h3 class="form-section-title">7. Evidencia y Observaciones (Almacén)</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+             <label>Condiciones detectadas</label>
+             <textarea id="report-almacen-conditions" rows="3" placeholder="Descripción de condiciones detectadas..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Riesgos sanitarios / Daños</label>
+             <textarea id="report-almacen-sanitary-risks" rows="3" placeholder="Riesgos a producto o instalaciones..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Acciones Recomendadas</label>
+             <textarea id="report-almacen-recommendations" rows="3" placeholder="Recomendaciones..."></textarea>
+        </div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group">
+             <label>Observaciones de Limpieza</label>
+             <textarea id="report-almacen-housekeeping" rows="3" placeholder="Observaciones de limpieza..."></textarea>
+        </div>
+        <div class="form-group">
+             <label>Observaciones de Mantenimiento</label>
+             <textarea id="report-almacen-maintenance" rows="3" placeholder="Observaciones de mantenimiento..."></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- NEGOCIO LOCAL REPORT SECTIONS -->
+<div id="local-report-sections" class="hidden">
+    <h3 class="form-section-title">3. Diagnóstico Negocio Local</h3>
+    
+    <div class="form-group full-width">
+        <label>Tipo de tratamiento</label>
+        <div id="report-local-treatment-type-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+            <label><input type="checkbox" value="Preventivo"><span class="checkmark"></span> Preventivo</label>
+            <label><input type="checkbox" value="Correctivo"><span class="checkmark"></span> Correctivo</label>
+            <label><input type="checkbox" value="Focalizado"><span class="checkmark"></span> Focalizado</label>
+        </div>
+    </div>
+
+    <div class="form-group full-width">
+        <label>Motivo del tratamiento</label>
+        <input type="text" id="report-local-treatment-reason" placeholder="Motivo del servicio...">
+    </div>
+
+    <div class="form-group full-width">
+        <label>Método de Inspección</label>
+        <div id="report-local-inspection-method-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));">
+            <label><input type="checkbox" value="Inspección visual"><span class="checkmark"></span> Inspección visual</label>
+            <label><input type="checkbox" value="Monitoreo con trampas"><span class="checkmark"></span> Monitoreo con trampas</label>
+            <label><input type="checkbox" value="Revisión de rincones"><span class="checkmark"></span> Revisión de rincones</label>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Diagnóstico de Áreas</h3>
+    <div class="form-group full-width">
+        <label>Áreas Inspeccionadas</label>
+        <div id="report-local-areas-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+    </div>
+
+    <div class="form-group full-width">
+        <label>Plaga(s) detectada(s)</label>
+        <div id="report-local-pests-group" class="styled-checkbox-group" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group full-width">
+            <label>Detalle de Actividad</label>
+            <input type="text" id="report-local-activity-detail" placeholder="Ej: Actividad en bodega...">
+        </div>
+    </div>
+
+    <div class="form-grid">
+         <div class="form-group">
+            <label>Nivel de Infestación Global</label>
+            <select id="report-local-infestation-level" data-custom-select>
+                <option value="Nulo">Nulo</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="form-section-title">4. Tratamiento y Observaciones</h3>
+    <div class="form-group full-width">
+        <label>Métodos de Control</label>
+        <div id="report-local-methods-group" class="styled-checkbox-group"></div>
+    </div>
+    
+    <h3 class="form-section-title">7. Evidencia y Observaciones (Negocio Local)</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+             <label>Condiciones detectadas</label>
+             <textarea id="report-local-conditions" rows="3" placeholder="Descripción de condiciones detectadas..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Riesgos sanitarios</label>
+             <textarea id="report-local-sanitary-risks" rows="3" placeholder="Riesgos sanitarios..."></textarea>
+        </div>
+        <div class="form-group full-width">
+             <label>Acciones Recomendadas</label>
+             <textarea id="report-local-recommendations" rows="3" placeholder="Recomendaciones..."></textarea>
+        </div>
+    </div>
+    
+    <div class="form-grid">
+        <div class="form-group">
+             <label>Observaciones de Limpieza</label>
+             <textarea id="report-local-housekeeping" rows="3" placeholder="Observaciones de limpieza..."></textarea>
+        </div>
+        <div class="form-group">
+             <label>Observaciones de Mantenimiento</label>
+             <textarea id="report-local-maintenance" rows="3" placeholder="Observaciones de mantenimiento..."></textarea>
+        </div>
+    </div>
+</div>
+
+
+<h3 class="form-section-title">5. Evidencia y Observaciones</h3>
+<div class="form-grid"><div class="form-group"><label for="report-photos-before">Fotos Antes del Servicio (máx. 25)</label><input type="file" id="report-photos-before" multiple accept="image/*" style="padding: 10px; background-color: var(--bg-light); border: 1px solid var(--border-color); border-radius: 5px; color: var(--text-light); font-family: var(--font-body); font-size: 1rem;"><div id="report-photo-previews-before"></div></div><div class="form-group"><label for="report-photos-after">Fotos Después del Servicio (máx. 25)</label><input type="file" id="report-photos-after" multiple accept="image/*" style="padding: 10px; background-color: var(--bg-light); border: 1px solid var(--border-color); border-radius: 5px; color: var(--text-light); font-family: var(--font-body); font-size: 1rem;"><div id="report-photo-previews-after"></div></div></div><div class="form-group full-width"><label for="report-recommendations">Recomendaciones para prevenir reinfestación</label><textarea id="report-recommendations" rows="4" placeholder=""></textarea></div><h3 class="form-section-title">6. Firma de Conformidad</h3><div class="form-grid"><div class="form-group"><label>Firma del Técnico</label><div class="signature-pad-placeholder" id="tech-signature-placeholder" onclick="openSignatureModal('techSignature')"><span>🖊️ Hacer clic para firmar</span></div></div><div class="form-group"><label>Firma del Cliente</label><div class="signature-pad-placeholder" id="client-signature-placeholder" onclick="openSignatureModal('clientSignature')"><span>🖊️ Hacer clic para firmar</span></div></div></div><h3 class="form-section-title">7. Garantía y Seguimiento</h3><div class="form-group full-width"><label class="neon-checkbox-wrapper"><input type="checkbox" id="warranty-applies-checkbox"><div class="neon-checkmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17L4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div><span class="neon-label">Aplicar Garantía al Servicio</span></label></div><div class="form-group hidden" id="report-warranty-duration-group"><label for="report-warranty-duration">Duración de la Garantía</label><select id="report-warranty-duration" data-custom-select><option value="1 Mes">1 Mes</option><option value="2 Meses">2 Meses</option><option value="3 Meses" selected>3 Meses</option><option value="4 Meses">4 Meses</option><option value="5 Meses">5 Meses</option><option value="6 Meses">6 Meses</option><option value="7 Meses">7 Meses</option><option value="8 Meses">8 Meses</option><option value="9 Meses">9 Meses</option><option value="10 Meses">10 Meses</option><option value="11 Meses">11 Meses</option><option value="12 Meses">12 Meses</option></select></div><button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">Guardar y Generar Reporte</button></form></div></div>
+    
+
+
+    <div id="printable-document-modal" class="modal no-print">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                <h2 id="printable-document-title" style="margin-bottom: 0;">Vista Previa del Documento</h2>
+                <div>
+                    <div id="printable-document-options" style="display: none; margin-bottom: 10px; text-align: right;">
+                        <label class="checkbox-container" style="font-size: 0.9em;">
+                            <input type="checkbox" id="print-option-show-costs" onchange="refreshPrintableDocument()">
+                            <span class="checkmark"></span> Incluir Costos de Químicos
+                        </label>
+                    </div>
+                    <button class="cta-button" onclick="downloadDocumentAsPDF()">📄 Descargar PDF</button>
+                    <span class="modal-close" onclick="closeModal('printable-document-modal')" style="position: static; transform: none; margin-left: 15px;">×</span>
+                </div>
+            </div>
+            <div id="printable-document-wrapper">
+                <div id="printable-document-area"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="signature-modal" class="modal no-print"><div class="modal-content"><h2 id="signature-modal-title">Realizar Firma</h2><canvas id="signature-canvas"></canvas><div id="signature-modal-footer"><button class="action-btn delete" id="signature-clear-btn">Limpiar</button><button class="cta-button" id="signature-save-btn">Guardar Firma</button></div></div></div>
+    <div id="day-details-modal" class="modal no-print"><div class="modal-content" style="max-width: 600px;"><span class="modal-close" onclick="closeModal('day-details-modal')">×</span><h2 id="day-details-title">Eventos del Día</h2><ul id="day-details-list" class="day-details-list"></ul><button id="add-reminder-btn" class="cta-button" style="width: 100%;" data-admin-only>📌 Añadir Recordatorio</button></div></div>
+    <div id="reminder-modal" class="modal no-print"><div class="modal-content" style="max-width: 500px;"><span class="modal-close" onclick="closeModal('reminder-modal')">×</span><h2 id="reminder-modal-title"></h2><form id="reminder-form"><input type="hidden" id="reminder-id"><input type="hidden" id="reminder-date"><div class="form-group full-width"><label for="reminder-text">Texto del Recordatorio</label><input type="text" id="reminder-text" required placeholder="Ej: Llamar a proveedor, comprar producto..."></div><button type="submit" class="cta-button" style="width: 100%; margin-top: 10px;">Guardar Recordatorio</button></form></div></div>
+    <div id="details-list-modal" class="modal no-print"><div class="modal-content"><span class="modal-close" onclick="closeModal('details-list-modal')">×</span><h2 id="details-list-title"></h2><div id="details-list-content" class="details-list-container"></div></div></div>
+
+
+
+    
+    <div id="service-info-modal" class="modal no-print">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('service-info-modal')">×</span>
+            <h2 id="service-info-title">Detalles del Servicio</h2>
+            <div class="info-grid">
+                <div class="info-item"><strong>Cliente:</strong> <span id="service-info-client"></span></div>
+                <div class="info-item"><strong>Fecha y Hora:</strong> <span id="service-info-datetime"></span></div>
+                <div class="info-item full-width"><strong>Dirección:</strong> <span id="service-info-address"></span></div>
+                <div class="info-item"><strong>Técnico:</strong> <span id="service-info-tech"></span></div>
+                <div class="info-item"><strong>Estado:</strong> <span id="service-info-status"></span></div>
+            </div>
+            <div class="actions-footer" id="service-info-actions">
+                <!-- Botones se añadirán con JS -->
+            </div>
+        </div>
+        
+        <!-- Mobile navigation removed -->
+    </div>
+
+    <div id="alert-modal" class="modal no-print">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('alert-modal')">×</span>
+            <h2 id="alert-modal-title"></h2>
+            <p id="alert-modal-message"></p>
+            <div id="alert-modal-footer">
+                <!-- Botones se añadirán con JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para previsualizar documentos -->
+    <div id="document-preview-modal" class="modal no-print">
+        <div class="modal-content" style="max-width: 90%; max-height: 90vh;">
+            <span class="modal-close" onclick="closeModal('document-preview-modal')">×</span>
+            <h2 id="document-preview-title">Vista Previa del Documento</h2>
+            <div id="document-preview-content" style="margin-top: 20px; min-height: 400px; display: flex; align-items: center; justify-content: center; background-color: var(--bg-dark); border-radius: 8px; padding: 20px;">
+                <div style="text-align: center; color: var(--text-medium);">Cargando...</div>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="action-btn" onclick="closeModal('document-preview-modal')">Cerrar</button>
+                <button class="cta-button" id="document-preview-download-btn" onclick="">📥 Descargar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para subir documentos -->
+    <div id="document-modal" class="modal no-print">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('document-modal')">×</span>
+            <h2 id="document-modal-title">Subir Nuevo Documento</h2>
+            <form id="document-form" enctype="multipart/form-data">
+                <input type="hidden" id="document-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="document-name">Nombre del Documento *</label>
+                        <input type="text" id="document-name" required placeholder="Ej: Licencia de Fumigación 2025">
+                    </div>
+                    <div class="form-group">
+                        <label for="document-category">Categoría *</label>
+                        <select id="document-category" required data-custom-select>
+                            <option value="Licencia">Licencia</option>
+                            <option value="Certificado">Certificado</option>
+                            <option value="Permiso">Permiso</option>
+                            <option value="Seguro">Seguro</option>
+                            <option value="Contrato">Contrato</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="document-description">Descripción</label>
+                    <textarea id="document-description" rows="3" placeholder="Descripción opcional del documento..."></textarea>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="document-expiration-date">Fecha de Vencimiento (Opcional)</label>
+                        <input type="date" id="document-expiration-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="document-file">Archivo *</label>
+                        <div class="file-upload-area">
+                            <input type="file" id="document-file" required accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx,.xls,.xlsx" style="display: none;" onchange="handleDocumentFileSelect(event)">
+                            <div class="file-upload-button" onclick="document.getElementById('document-file').click()">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7,10 12,15 17,10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span>Seleccionar archivo</span>
+                            </div>
+                            <div class="file-upload-info">
+                                <small>Formatos permitidos: PDF, imágenes (JPG, PNG, GIF), Word, Excel (máx. 10MB)</small>
+                            </div>
+                            <div id="document-file-preview"></div>
+                            <div id="document-file-name" style="margin-top: 10px; color: var(--text-medium);">Ningún archivo seleccionado</div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="cta-button" style="width:100%; margin-top: 20px;">📤 Subir Documento</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Suscripción -->
+    <div id="plans-modal" class="modal no-print">
+        <div class="modal-content" style="max-width: 1000px;">
+            <span class="modal-close" onclick="document.getElementById('plans-modal').classList.remove('active')">×</span>
+            <h2 id="plans-modal-title">Nuestros Planes</h2>
+            
+            <div class="plans-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+                <!-- PLAN PESTY -->
+                <div class="plan-card" style="flex: 1; min-width: 280px;">
+                    <div class="plan-header">
+                        <h4>PESTY</h4>
+                        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-medium);">Plan base</p>
+                    </div>
+                    <div style="font-size: 1.8rem; font-weight: 800; margin: 10px 0; color: var(--accent-primary);">
+                        $199 <span style="font-size: 1rem; color: var(--text-medium);">MXN / mensual</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Panel</li>
+                        <li>Servicio (60/Mes)</li>
+                        <li>Clientes (60/Mes)</li>
+                        <li>Técnicos (5/Mes)</li>
+                        <li>Cotizaciones (60/Mes)</li>
+                        <li>Notas de Pago (60/Mes)</li>
+                        <li>Calendario</li>
+                        <li>Configuraciones</li>
+                    </ul>
+                    <button class="cta-button" style="width: 100%; margin-top: 20px;" onclick="subscribePlan('pesty')">
+                        Suscribirme a PESTY
+                    </button>
+                </div>
+                <!-- PLAN PESTY CORE -->
+                <div class="plan-card popular" style="flex: 1; min-width: 280px;">
+                    <div class="plan-badge">Recomendado</div>
+                    <div class="plan-header">
+                        <h4>PESTY CORE</h4>
+                        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-medium);">Mayor capacidad y módulos ilimitados</p>
+                    </div>
+                    <div style="font-size: 1.8rem; font-weight: 800; margin: 10px 0; color: var(--accent-primary);">
+                        $399 <span style="font-size: 1rem; color: var(--text-medium);">MXN / mensual</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Panel</li>
+                        <li>Servicio (200/Mes)</li>
+                        <li>Clientes (200/Mes)</li>
+                        <li>Técnicos (20/Mes)</li>
+                        <li>Cotizaciones (Ilimitado/Mes)</li>
+                        <li>Notas de Pago (Ilimitado/Mes)</li>
+                        <li>Químicos (Ilimitado/Mes)</li>
+                        <li>Biblioteca (Ilimitado/Mes)</li>
+                        <li>EPP (Ilimitado/Mes) <span style="color: var(--accent-secondary); font-weight:600;">Nuevo módulo</span></li>
+                        <li>Calendario</li>
+                        <li>Gastos/Estadísticas</li>
+                        <li>Configuraciones</li>
+                        <li>Vía (Email/WhatsApp)</li>
+                    </ul>
+                    <button class="cta-button" style="width: 100%; margin-top: 20px;" onclick="subscribePlan('pesty_core')">
+                        Suscribirme a PESTY CORE
+                    </button>
+                </div>
+                <!-- PLAN EMPRESARIAL -->
+                <div class="plan-card" style="flex: 1; min-width: 280px;">
+                    <div class="plan-header">
+                        <h4>PLAN EMPRESARIAL</h4>
+                        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--text-medium);">Ilimitado y con soporte prioritario</p>
+                    </div>
+                    <div style="font-size: 1.8rem; font-weight: 800; margin: 10px 0; color: var(--accent-primary);">
+                        $699 <span style="font-size: 1rem; color: var(--text-medium);">MXN / mensual</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Servicios (Ilimitados/Mes)</li>
+                        <li>Clientes (Ilimitados/Mes)</li>
+                        <li>Técnicos (Ilimitados/Mes)</li>
+                        <li>Reportes Personalizados</li>
+                        <li>Acceso Anticipado (Futuros Módulos)</li>
+                        <li>Sugerencias con Prioridad</li>
+                        <li>Vía (Email/WhatsApp)</li>
+                    </ul>
+                    <button class="cta-button" style="width: 100%; margin-top: 20px;" onclick="subscribePlan('enterprise')">
+                        Suscribirme al PLAN EMPRESARIAL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Quejas y Sugerencias -->
+    <div id="feedback-modal" class="modal no-print">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="modal-close" onclick="closeModal('feedback-modal')">×</span>
+            <h2>Quejas y sugerencias</h2>
+            <form id="feedback-form">
+                <div class="form-group">
+                    <label for="feedback-type">Tipo</label>
+                    <select id="feedback-type" required data-custom-select>
+                        <option value="queja">Queja</option>
+                        <option value="sugerencia">Sugerencia</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-message">Mensaje</label>
+                    <textarea id="feedback-message" rows="5" placeholder="Cuéntanos qué pasó o qué te gustaría mejorar..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-contact">Correo o WhatsApp (opcional)</label>
+                    <input type="text" id="feedback-contact" placeholder="Para darte seguimiento si es necesario">
+                </div>
+                <button type="submit" class="cta-button" style="width:100%; margin-top: 10px;">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Ayuda de Servicios -->
+    <div id="services-help-modal" class="modal no-print">
+        <div class="modal-content" style="max-width: 700px; max-height: 85vh; overflow-y: auto;">
+            <span class="modal-close" onclick="closeModal('services-help-modal')">×</span>
+            <h2 class="view-title">Guía del Módulo de <span class="highlight">Servicios</span></h2>
+            
+            <div class="help-content" style="margin-top: 20px;">
+                <div class="help-step">
+                    <div class="help-step-number">1</div>
+                    <div class="help-step-content">
+                        <h3>Agendar un Nuevo Servicio</h3>
+                        <p>Haz clic en el botón <span class="help-highlight">➕ Agendar Servicio</span>. Selecciona un cliente existente o crea uno nuevo al instante. Define la fecha, hora, técnico asignado y el tipo de servicio.</p>
+                        
+                        <div class="mockup-container">
+                            <span class="mockup-label">Ejemplo</span>
+                            <div class="mockup-form-group">
+                                <label>Cliente</label>
+                                <div class="mockup-input">Juan Pérez</div>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <div class="mockup-form-group" style="flex: 1;">
+                                    <label>Fecha</label>
+                                    <div class="mockup-input">2025-10-25</div>
+                                </div>
+                                <div class="mockup-form-group" style="flex: 1;">
+                                    <label>Hora</label>
+                                    <div class="mockup-input">10:00 AM</div>
+                                </div>
+                            </div>
+                            <button class="mockup-btn action" style="width: 100%; justify-content: center;">Guardar Servicio</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="help-step">
+                    <div class="help-step-number">2</div>
+                    <div class="help-step-content">
+                        <h3>Interacción con el Servicio</h3>
+                        <p>Haz clic en cualquier servicio de la lista para desplegar más opciones y detalles. Desde aquí podrás acceder a funciones rápidas de contacto y navegación.</p>
+                        
+                        <div class="mockup-container">
+                            <span class="mockup-label">Al hacer clic en la fila</span>
+                            <div class="mockup-row" style="margin-bottom: 10px; border-left: 3px solid var(--accent-primary);">
+                                <div style="flex: 1;">
+                                    <div style="font-weight: bold; color: var(--text-light);">Residencial - Cucarachas</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-medium);">Cliente: María López</div>
+                                </div>
+                                <div style="font-size: 1.2rem;">⌄</div>
+                            </div>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="mockup-btn maps">📍 Maps</button>
+                                <button class="mockup-btn whatsapp">💬 WhatsApp</button>
+                                <button class="mockup-btn link">🔗 Firma</button>
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--text-medium); margin-top: 10px; font-style: italic;">
+                                * Estas opciones aparecen al expandir el servicio.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="help-step">
+                    <div class="help-step-number">3</div>
+                    <div class="help-step-content">
+                        <h3>Gestión del Estado</h3>
+                        <p>Los servicios aparecen inicialmente como <span class="help-highlight">Pendiente</span>. Desde la tabla puedes cambiar el estado a <span class="help-highlight">Realizado</span> o <span class="help-highlight">Cancelado</span> según corresponda.</p>
+                    </div>
+                </div>
+
+                <div class="help-step">
+                    <div class="help-step-number">4</div>
+                    <div class="help-step-content">
+                        <h3>Generar Reporte de Servicio</h3>
+                        <p>Una vez realizado el servicio, haz clic en el botón de <span class="help-highlight">📝 Reporte</span> en la fila correspondiente. Aquí podrás registrar:
+                        <br>• Plagas detectadas y nivel de infestación.
+                        <br>• Químicos utilizados y dosis exactas.
+                        <br>• Fotos de evidencia (Antes y Después).
+                        <br>• Firmas digitales del técnico y del cliente.</p>
+                    </div>
+                </div>
+
+                <div class="help-step">
+                    <div class="help-step-number">5</div>
+                    <div class="help-step-content">
+                        <h3>Enviar al Cliente</h3>
+                        <p>Al finalizar el reporte, el sistema generará automáticamente un PDF profesional. Puedes descargarlo o enviarlo directamente por WhatsApp usando el botón <span class="help-highlight">📱 WhatsApp</span>.</p>
+                    </div>
+                </div>
+
+                <div class="help-step">
+                    <div class="help-step-number">6</div>
+                    <div class="help-step-content">
+                        <h3>Próxima Cita (Refuerzo)</h3>
+                        <p>El sistema calculará automáticamente la fecha sugerida para el próximo servicio basándose en la garantía y el tipo de plaga. Puedes agendar el refuerzo con un solo clic desde el panel de detalles.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="cta-button" onclick="closeModal('services-help-modal')" style="width: 100%; margin-top: 20px;">¡Entendido!</button>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="registration-modal" class="modal registration-modal no-print">
+        <div class="modal-content registration-modal-content">
+            <span class="modal-close" onclick="closeModal('registration-modal')">×</span>
+            <div class="registration-modal-header">
+                <h2>Crear Cuenta</h2>
+                <p>Únete a Pesty Software y comienza a gestionar tu negocio de manera profesional</p>
+            </div>
+            <div class="registration-form-container">
+                <form id="registration-form" class="registration-form">
+                    <div class="form-group">
+                        <label for="company-name">Nombre de la Empresa</label>
+                        <input type="text" id="company-name" name="company_name" required placeholder="Ingresa el nombre de tu empresa">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required placeholder="tu@empresa.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-email">Confirmar Correo Electrónico</label>
+                        <input type="email" id="confirm-email" name="confirm_email" required placeholder="Confirma tu correo electrónico">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" required placeholder="Mínimo 8 caracteres">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar Contraseña</label>
+                        <input type="password" id="confirm-password" name="confirm_password" required placeholder="Confirma tu contraseña">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="register-button">Crear Cuenta</button>
+                        <div class="divider">
+                            <span>o</span>
+                        </div>
+                        <button type="button" class="google-register-button" onclick="registerWithGoogle()">
+                            <svg class="google-icon" viewBox="0 0 24 24">
+                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            Registrarse con Google
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Modal -->
+    <div id="welcome-modal" class="modal no-print" style="z-index: 9999;">
+        <div class="modal-content" style="max-width: 600px; text-align: center; padding: 40px; background: linear-gradient(145deg, #1a1a1a, #2d2d2d); border: 1px solid var(--accent-primary);">
+            <div style="font-size: 4rem; margin-bottom: 20px;">👋</div>
+            <h2 style="color: var(--accent-primary); font-size: 2.5rem; margin-bottom: 10px; font-family: var(--font-display);">¡Bienvenido a Pesty!</h2>
+            <p style="color: var(--text-light); font-size: 1.2rem; margin-bottom: 30px;">Estamos emocionados de mostrarte las nuevas mejoras que hemos preparado para ti.</p>
+            
+            <div style="text-align: left; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 1.5rem; margin-right: 15px;">🚀</span>
+                    <div>
+                        <strong style="color: var(--text-light); display: block; font-size: 1.1rem;">Ficha de Cliente 2.0</strong>
+                        <span style="color: var(--text-medium);">Toda la información de tus clientes en un solo lugar, organizada por pestañas.</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 1.5rem; margin-right: 15px;">🧠</span>
+                    <div>
+                        <strong style="color: var(--text-light); display: block; font-size: 1.1rem;">Inteligencia en Refuerzos</strong>
+                        <span style="color: var(--text-medium);">El sistema te sugerirá cuándo volver según lo que encuentres en cada visita.</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 1.5rem; margin-right: 15px;">📝</span>
+                    <div>
+                        <strong style="color: var(--text-light); display: block; font-size: 1.1rem;">Reportes Profesionales</strong>
+                        <span style="color: var(--text-medium);">Folios personalizados y recomendaciones de refuerzo claras para el cliente.</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; margin-right: 15px;">🔗</span>
+                    <div>
+                        <strong style="color: var(--text-light); display: block; font-size: 1.1rem;">Firma Remota Segura</strong>
+                        <span style="color: var(--text-medium);">Envía links seguros para que tus clientes firmen desde su celular.</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="cta-button" onclick="closeWelcomeModal()" style="font-size: 1.2rem; padding: 12px 40px;">¡Comencemos!</button>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir el modal de ayuda de servicios
+        window.openServicesHelpModal = function() {
+            openModal('services-help-modal');
+        }
+
+        // Función para abrir el modal de ayuda de clientes (Backup global)
+        window.openClientsHelpModal = function() {
+            console.log('Intentando abrir modal de ayuda de clientes...');
+            const modalId = 'clients-help-modal';
+            
+            // Intentar usar la función global openModal si existe
+            if (typeof openModal === 'function') {
+                // Verificar si el modal existe en el DOM
+                if (!document.getElementById(modalId)) {
+                    console.warn('Modal no encontrado en el DOM, buscando en el contenedor de vista...');
+                    // Intentar moverlo manualmente si está atrapado en la vista
+                    const inView = document.querySelector('#clients-view #' + modalId);
+                    if (inView) {
+                        document.body.appendChild(inView);
+                    }
+                }
+                openModal(modalId);
+            } else {
+                // Fallback manual
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'flex';
+                } else {
+                    alert('La ayuda del módulo de clientes se está cargando. Por favor intente de nuevo en un momento.');
+                    // Intentar recargar la vista si la función existe
+                    if (typeof window.renderClientsView === 'function') {
+                        window.renderClientsView();
+                    }
+                }
+            }
+        }
+
+        // Función para abrir el modal de ayuda de técnicos (Backup global)
+        window.openTechsHelpModal = function() {
+            console.log('Intentando abrir modal de ayuda de técnicos...');
+            const modalId = 'techs-help-modal';
+            
+            // Intentar usar la función global openModal si existe
+            if (typeof openModal === 'function') {
+                // Verificar si el modal existe en el DOM
+                if (!document.getElementById(modalId)) {
+                    console.warn('Modal no encontrado en el DOM, buscando en el contenedor de vista...');
+                    // Intentar moverlo manualmente si está atrapado en la vista
+                    const inView = document.querySelector('#techs-view #' + modalId);
+                    if (inView) {
+                        document.body.appendChild(inView);
+                    }
+                }
+                openModal(modalId);
+            } else {
+                // Fallback manual
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'flex';
+                } else {
+                    alert('La ayuda del módulo de técnicos se está cargando. Por favor intente de nuevo en un momento.');
+                    // Intentar recargar la vista si la función existe
+                    if (typeof window.renderTechsView === 'function') {
+                        window.renderTechsView();
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="modulos/library/script.js?v=1.3.0" defer></script>
+    <script src="modulos/config/script.js?v=1.3.1" defer></script>
+    <script src="modulos/stats/script.js?v=1.3.0" defer></script>
+    <script src="modulos/calendar/script.js?v=1.3.0" defer></script>
+    <script src="modulos/expenses/script.js?v=1.3.1" defer></script>
+    <script src="modulos/chemicals/script.js?v=1.3.1" defer></script>
+    <link rel="stylesheet" href="modulos/epp/style.css?v=1.0.1">
+    <script src="modulos/epp/script.js?v=1.0.1" defer></script>
+    <script src="modulos/chemicals/report_helpers.js?v=1.3.1" defer></script>
+    <script src="modulos/cebaderos/script.js?v=1.3.0" defer></script>
+    <script src="modulos/payment_notes/script.js?v=1.3.0" defer></script>
+    <script src="modulos/quotes/script.js?v=1.3.0" defer></script>
+    <script src="modulos/clients/script.js?v=1.3.2" defer></script>
+    <script src="modulos/techs/script.js?v=1.3.1" defer></script>
+    <script src="modulos/admin/script.js?v=1.3.1" defer></script>
+    <script src="modulos/email_sender/script.js?v=1.0.0" defer></script>
+    <script src="modulos/analysis/script.js?v=1.0.1" defer></script>
+    <script src="modulos/auth/forgot_password.js?v=1.0.2" defer></script>
+    <script src="modulos/routes/script.js?v=1.0.0" defer></script>
+    <script src="modulos/certificates/script.js?v=1.0.0" defer></script>
+    <script type="module" src="js/bridge.js?v=2.0.0"></script>
+    <script type="module" src="script.js?v=1.8.3"></script>
+
+</body>
+</html>
